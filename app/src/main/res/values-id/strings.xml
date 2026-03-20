@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">Pengaturan</string>
+    <string name="add_new_entry">Tambah entri baru</string>
+    <string name="habit_name">Nama Kebiasaan</string>
+    <string name="last_occurrence">Terakhir Terjadi</string>
+    <string name="save">Simpan</string>
+    <string name="cancel">Batal</string>
+    <string name="days">h</string>
+    <string name="hours">j</string>
+    <string name="minutes">m</string>
+    <string name="seconds">d</string>
+    <string name="language">Bahasa</string>
+    <string name="disclaimer">Penafian: Aplikasi ini adalah alat pelacak mandiri dan bukan pengganti saran medis profesional.</string>
+    <string name="select_date">Pilih Tanggal</string>
+    <string name="select_time">Pilih Waktu</string>
+    <string name="select_date_time">Tanggal dan Waktu</string>
+    <string name="habit_name_required">Nama kebiasaan diperlukan</string>
+    <string name="empty_dashboard">Belum ada pelacak. Ketuk + untuk menambahkan!</string>
+</resources>

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">设置</string>
+    <string name="add_new_entry">添加新项目</string>
+    <string name="habit_name">习惯名称</string>
+    <string name="last_occurrence">最后发生时间</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="days">天</string>
+    <string name="hours">小时</string>
+    <string name="minutes">分钟</string>
+    <string name="seconds">秒</string>
+    <string name="language">语言</string>
+    <string name="disclaimer">免责声明：此应用仅作为自我追踪工具，不能替代专业医疗建议。</string>
+    <string name="select_date">选择日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="select_date_time">日期和时间</string>
+    <string name="habit_name_required">习惯名称为必填项</string>
+    <string name="empty_dashboard">尚无追踪器。点击 + 添加一个！</string>
+</resources>

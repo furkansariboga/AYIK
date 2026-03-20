@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">الإعدادات</string>
+    <string name="add_new_entry">إضافة إدخال جديد</string>
+    <string name="habit_name">اسم العادة</string>
+    <string name="last_occurrence">آخر حدوث</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="days">ي</string>
+    <string name="hours">سا</string>
+    <string name="minutes">د</string>
+    <string name="seconds">ث</string>
+    <string name="language">اللغة</string>
+    <string name="disclaimer">إخلاء مسؤولية: هذا التطبيق هو أداة تتبع ذاتي وليس بديلاً عن المشورة الطبية المهنية.</string>
+    <string name="select_date">اختر التاريخ</string>
+    <string name="select_time">اختر الوقت</string>
+    <string name="select_date_time">التاريخ والوقت</string>
+    <string name="habit_name_required">اسم العادة مطلوب</string>
+    <string name="empty_dashboard">لا توجد أجهزة تتبع بعد. اضغط على + لإضافة واحد!</string>
+</resources>

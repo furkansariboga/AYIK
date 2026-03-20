@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">Configurações</string>
+    <string name="add_new_entry">Adicionar nova entrada</string>
+    <string name="habit_name">Nome do hábito</string>
+    <string name="last_occurrence">Última ocorrência</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="days">d</string>
+    <string name="hours">h</string>
+    <string name="minutes">m</string>
+    <string name="seconds">s</string>
+    <string name="language">Idioma</string>
+    <string name="disclaimer">Aviso: Este aplicativo é uma ferramenta de auto-rastreamento e não substitui o aconselhamento médico profissional.</string>
+    <string name="select_date">Selecionar data</string>
+    <string name="select_time">Selecionar hora</string>
+    <string name="select_date_time">Data e hora</string>
+    <string name="habit_name_required">O nome do hábito é obrigatório</string>
+    <string name="empty_dashboard">Nenhum rastreador ainda. Toque em + para adicionar um!</string>
+</resources>

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">ترتیبات</string>
+    <string name="add_new_entry">نیا اندراج شامل کریں</string>
+    <string name="habit_name">عادت کا نام</string>
+    <string name="last_occurrence">آخری واقعہ</string>
+    <string name="save">محفوظ کریں</string>
+    <string name="cancel">منسوخ کریں</string>
+    <string name="days">دن</string>
+    <string name="hours">گھنٹے</string>
+    <string name="minutes">منٹ</string>
+    <string name="seconds">سیکنڈ</string>
+    <string name="language">زبان</string>
+    <string name="disclaimer">دستبرداری: یہ ایپ ایک سیلف ٹریکنگ ٹول ہے اور پیشہ ورانہ طبی مشورے کا متبادل نہیں ہے۔</string>
+    <string name="select_date">تاریخ منتخب کریں</string>
+    <string name="select_time">وقت منتخب کریں</string>
+    <string name="select_date_time">تاریخ اور وقت</string>
+    <string name="habit_name_required">عادت کا نام ضروری ہے</string>
+    <string name="empty_dashboard">ابھی تک کوئی ٹریکر نہیں ہے۔ شامل کرنے کے لیے + پر ٹیپ کریں!</string>
+</resources>

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="add_new_entry">नई प्रविष्टि जोड़ें</string>
+    <string name="habit_name">आदत का नाम</string>
+    <string name="last_occurrence">अंतिम घटना</string>
+    <string name="save">सहेजें</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="days">दिन</string>
+    <string name="hours">घंटे</string>
+    <string name="minutes">मिनट</string>
+    <string name="seconds">सेकंड</string>
+    <string name="language">भाषा</string>
+    <string name="disclaimer">अस्वीकरण: यह ऐप एक स्व-ट्रैकिंग टूल है और पेशेवर चिकित्सा सलाह का विकल्प नहीं है।</string>
+    <string name="select_date">तारीख चुनें</string>
+    <string name="select_time">समय चुनें</string>
+    <string name="select_date_time">दिनांक और समय</string>
+    <string name="habit_name_required">आदत का नाम आवश्यक है</string>
+    <string name="empty_dashboard">अभी तक कोई ट्रैकर नहीं है। एक जोड़ने के लिए + पर टैप करें!</string>
+</resources>

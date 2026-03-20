@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">সেটিংস</string>
+    <string name="add_new_entry">নতুন এন্ট্রি যোগ করুন</string>
+    <string name="habit_name">অভ্যাসের নাম</string>
+    <string name="last_occurrence">শেষ ঘটনা</string>
+    <string name="save">সংরক্ষণ করুন</string>
+    <string name="cancel">বাতিল করুন</string>
+    <string name="days">দিন</string>
+    <string name="hours">ঘণ্টা</string>
+    <string name="minutes">মিনিট</string>
+    <string name="seconds">সেকেন্ড</string>
+    <string name="language">ভাষা</string>
+    <string name="disclaimer">দাবিত্যাগ: এই অ্যাপটি একটি স্ব-ট্র্যাকিং সরঞ্জাম এবং পেশাদার চিকিৎসা পরামর্শের বিকল্প নয়।</string>
+    <string name="select_date">তারিখ নির্বাচন করুন</string>
+    <string name="select_time">সময় নির্বাচন করুন</string>
+    <string name="select_date_time">তারিখ ও সময়</string>
+    <string name="habit_name_required">অভ্যাসের নাম আবশ্যক</string>
+    <string name="empty_dashboard">এখনও কোনো ট্র্যাকার নেই। একটি যোগ করতে + এ আলতো চাপুন!</string>
+</resources>

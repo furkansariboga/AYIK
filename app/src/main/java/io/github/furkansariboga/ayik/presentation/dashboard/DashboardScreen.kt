@@ -17,9 +17,16 @@
 */
 package io.github.furkansariboga.ayik.presentation.dashboard
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -34,44 +41,98 @@ import io.github.furkansariboga.ayik.presentation.HabitViewModel
 import io.github.furkansariboga.ayik.util.TimeUtils
 import kotlinx.coroutines.delay
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
     viewModel: HabitViewModel,
     onAddEntryClick: () -> Unit
 ) {
     val habits by viewModel.habits.collectAsState()
+    var selectedHabits by remember { mutableStateOf(setOf<Habit>()) }
+    val isSelectionMode = selectedHabits.isNotEmpty()
+
+    BackHandler(enabled = isSelectionMode) {
+        selectedHabits = emptySet()
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if (habits.isEmpty()) {
-            Text(
-                text = stringResource(R.string.empty_dashboard),
-                modifier = Modifier.align(Alignment.Center),
-                style = MaterialTheme.typography.bodyLarge
-            )
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(habits) { habit ->
-                    HabitItem(habit = habit)
-                }
-                item {
-                    Spacer(modifier = Modifier.height(80.dp))
+        Column(modifier = Modifier.fillMaxSize()) {
+            AnimatedVisibility(visible = isSelectionMode) {
+                TopAppBar(
+                    title = { Text("${selectedHabits.size} selected") },
+                    navigationIcon = {
+                        IconButton(onClick = { selectedHabits = emptySet() }) {
+                            Icon(Icons.Default.Close, contentDescription = null)
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {
+                            selectedHabits.forEach { viewModel.deleteHabit(it) }
+                            selectedHabits = emptySet()
+                        }) {
+                            Icon(Icons.Default.Delete, contentDescription = null)
+                        }
+                    }
+                )
+            }
+
+            if (habits.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
-                        text = stringResource(R.string.disclaimer),
-                        style = MaterialTheme.typography.labelSmall,
-                        modifier = Modifier.padding(8.dp)
+                        text = stringResource(R.string.empty_dashboard),
+                        style = MaterialTheme.typography.bodyLarge
                     )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(habits) { habit ->
+                        HabitItem(
+                            habit = habit,
+                            isSelected = selectedHabits.contains(habit),
+                            onLongClick = {
+                                selectedHabits = if (selectedHabits.contains(habit)) {
+                                    selectedHabits - habit
+                                } else {
+                                    selectedHabits + habit
+                                }
+                            },
+                            onClick = {
+                                if (isSelectionMode) {
+                                    selectedHabits = if (selectedHabits.contains(habit)) {
+                                        selectedHabits - habit
+                                    } else {
+                                        selectedHabits + habit
+                                    }
+                                }
+                            }
+                        )
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(80.dp))
+                        Text(
+                            text = stringResource(R.string.disclaimer),
+                            style = MaterialTheme.typography.labelSmall,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
                 }
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HabitItem(habit: Habit) {
+fun HabitItem(
+    habit: Habit,
+    isSelected: Boolean,
+    onLongClick: () -> Unit,
+    onClick: () -> Unit
+) {
     val context = LocalContext.current
     var currentTime by remember { mutableLongStateOf(System.currentTimeMillis()) }
 
@@ -86,8 +147,18 @@ fun HabitItem(habit: Habit) {
     val formattedTime = TimeUtils.formatElapsedTime(context, elapsedTime)
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick
+            ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = if (isSelected) {
+            CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+        } else {
+            CardDefaults.cardColors()
+        }
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -101,7 +172,7 @@ fun HabitItem(habit: Habit) {
             Text(
                 text = formattedTime,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary
             )
         }
     }

@@ -20,6 +20,8 @@ package io.github.furkansariboga.ayik.presentation.settings
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
@@ -38,10 +40,34 @@ fun SettingsScreen(
 ) {
     val languages = listOf(
         "English" to "en",
-        "Türkçe" to "tr"
+        "Türkçe" to "tr",
+        "Español" to "es",
+        "Français" to "fr",
+        "Português" to "pt",
+        "Bahasa Indonesia" to "id",
+        "العربية" to "ar",
+        "हिन्दी" to "hi",
+        "বাংলা" to "bn",
+        "اردو" to "ur",
+        "简体中文" to "zh-Hans",
+        "繁體中文" to "zh-Hant"
     )
 
-    val currentLocale = AppCompatDelegate.getApplicationLocales().get(0)?.language ?: "en"
+    val currentLocales = AppCompatDelegate.getApplicationLocales()
+    val currentLocale = if (!currentLocales.isEmpty) {
+        val firstLocale = currentLocales.get(0)
+        if (firstLocale?.language == "zh") {
+            if (firstLocale.script == "Hant" || firstLocale.country == "TW" || firstLocale.country == "HK") "zh-Hant"
+            else "zh-Hans"
+        } else {
+            // Normalize 'in' to 'id' for Indonesian if necessary, though AppCompat handles it
+            val lang = firstLocale?.language ?: "en"
+            if (lang == "in") "id" else lang
+        }
+    } else {
+        "en"
+    }
+
     var showLanguageDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -80,11 +106,16 @@ fun SettingsScreen(
     }
 
     if (showLanguageDialog) {
+        val scrollState = rememberScrollState()
         AlertDialog(
             onDismissRequest = { showLanguageDialog = false },
             title = { Text(stringResource(R.string.language)) },
             text = {
-                Column {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(scrollState)
+                        .fillMaxWidth()
+                ) {
                     languages.forEach { (name, code) ->
                         Row(
                             modifier = Modifier
@@ -94,12 +125,12 @@ fun SettingsScreen(
                                     AppCompatDelegate.setApplicationLocales(appLocale)
                                     showLanguageDialog = false
                                 }
-                                .padding(16.dp),
+                                .padding(vertical = 12.dp, horizontal = 8.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             RadioButton(
                                 selected = currentLocale == code,
-                                onClick = null // Handled by row clickable
+                                onClick = null
                             )
                             Spacer(modifier = Modifier.width(16.dp))
                             Text(name)

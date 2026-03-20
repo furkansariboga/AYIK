@@ -18,9 +18,9 @@
 package io.github.furkansariboga.ayik
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -39,10 +39,11 @@ import io.github.furkansariboga.ayik.presentation.HabitViewModel
 import io.github.furkansariboga.ayik.presentation.add_entry.AddEntryScreen
 import io.github.furkansariboga.ayik.presentation.dashboard.DashboardScreen
 import io.github.furkansariboga.ayik.presentation.navigation.Screen
+import io.github.furkansariboga.ayik.presentation.settings.SettingsScreen
 import io.github.furkansariboga.ayik.ui.theme.AYIKTheme
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,17 +57,19 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     topBar = {
-                        CenterAlignedTopAppBar(
-                            title = { Text(stringResource(R.string.app_name)) },
-                            actions = {
-                                IconButton(onClick = { /* TODO: Language/Settings selector */ }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Settings,
-                                        contentDescription = stringResource(R.string.settings)
-                                    )
+                        if (currentRoute != Screen.Settings.route) {
+                            CenterAlignedTopAppBar(
+                                title = { Text(stringResource(R.string.app_name)) },
+                                actions = {
+                                    IconButton(onClick = { navController.navigate(Screen.Settings.route) }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Settings,
+                                            contentDescription = stringResource(R.string.settings)
+                                        )
+                                    }
                                 }
-                            }
-                        )
+                            )
+                        }
                     },
                     floatingActionButton = {
                         if (currentRoute == Screen.Dashboard.route) {
@@ -95,6 +98,11 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.AddEntry.route) {
                             AddEntryScreen(
                                 viewModel = viewModel,
+                                onNavigateBack = { navController.popBackStack() }
+                            )
+                        }
+                        composable(Screen.Settings.route) {
+                            SettingsScreen(
                                 onNavigateBack = { navController.popBackStack() }
                             )
                         }

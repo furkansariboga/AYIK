@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AYIK</string>
+    <string name="settings">Ayarlar</string>
+    <string name="add_new_entry">Yeni kayıt ekle</string>
+    <string name="habit_name">Alışkanlık Adı</string>
+    <string name="last_occurrence">Son Gerçekleşme</string>
+    <string name="save">Kaydet</string>
+    <string name="cancel">İptal</string>
+    <string name="days">g</string>
+    <string name="hours">sa</string>
+    <string name="minutes">dk</string>
+    <string name="seconds">sn</string>
+    <string name="language">Dil</string>
+    <string name="disclaimer">Uyarı: Bu uygulama bir öz-takip aracıdır ve profesyonel tıbbi tavsiye yerine geçmez.</string>
+    <string name="select_date">Tarih Seç</string>
+    <string name="select_time">Saat Seç</string>
+    <string name="select_date_time">Tarih ve Saat</string>
+    <string name="habit_name_required">Alışkanlık adı gerekli</string>
+    <string name="empty_dashboard">Henüz takipçi yok. Eklemek için + simgesine dokunun!</string>
+</resources>

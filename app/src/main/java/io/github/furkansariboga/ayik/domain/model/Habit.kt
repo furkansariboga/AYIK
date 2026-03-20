@@ -15,20 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-package io.github.furkansariboga.ayik
+package io.github.furkansariboga.ayik.domain.model
 
-import org.junit.Test
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-import org.junit.Assert.*
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
-}
+@Entity(tableName = "habits")
+data class Habit(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val name: String,
+    val lastOccurrenceTimestamp: Long
+)

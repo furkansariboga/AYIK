@@ -15,20 +15,24 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-package io.github.furkansariboga.ayik
+package io.github.furkansariboga.ayik.data.repository
 
-import org.junit.Test
+import io.github.furkansariboga.ayik.data.local.HabitDao
+import io.github.furkansariboga.ayik.domain.model.Habit
+import io.github.furkansariboga.ayik.domain.repository.HabitRepository
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-import org.junit.Assert.*
+class HabitRepositoryImpl @Inject constructor(
+    private val dao: HabitDao
+) : HabitRepository {
+    override fun getAllHabits(): Flow<List<Habit>> = dao.getAllHabits()
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    override suspend fun insertHabit(habit: Habit) {
+        dao.insertHabit(habit)
+    }
+
+    override suspend fun deleteHabit(habit: Habit) {
+        dao.deleteHabit(habit)
     }
 }

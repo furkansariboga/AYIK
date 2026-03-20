@@ -15,20 +15,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-package io.github.furkansariboga.ayik
+package io.github.furkansariboga.ayik.presentation.navigation
 
-import org.junit.Test
-
-import org.junit.Assert.*
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+sealed class Screen(val route: String) {
+    object Dashboard : Screen("dashboard")
+    object AddEntry : Screen("add_entry")
+    object Settings : Screen("settings")
 }

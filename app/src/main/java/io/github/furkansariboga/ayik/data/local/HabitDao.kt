@@ -15,20 +15,24 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-package io.github.furkansariboga.ayik
+package io.github.furkansariboga.ayik.data.local
 
-import org.junit.Test
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import io.github.furkansariboga.ayik.domain.model.Habit
+import kotlinx.coroutines.flow.Flow
 
-import org.junit.Assert.*
+@Dao
+interface HabitDao {
+    @Query("SELECT * FROM habits ORDER BY lastOccurrenceTimestamp DESC")
+    fun getAllHabits(): Flow<List<Habit>>
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHabit(habit: Habit)
+
+    @Delete
+    suspend fun deleteHabit(habit: Habit)
 }

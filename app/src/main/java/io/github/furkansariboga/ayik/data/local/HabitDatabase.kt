@@ -15,20 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-package io.github.furkansariboga.ayik
+package io.github.furkansariboga.ayik.data.local
 
-import org.junit.Test
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import io.github.furkansariboga.ayik.domain.model.Habit
 
-import org.junit.Assert.*
+@Database(entities = [Habit::class], version = 1, exportSchema = false)
+abstract class HabitDatabase : RoomDatabase() {
+    abstract val habitDao: HabitDao
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    companion object {
+        const val DATABASE_NAME = "ayik_db"
     }
 }

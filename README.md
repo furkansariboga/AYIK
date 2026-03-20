@@ -1,5 +1,7 @@
-Addiction recovery should not be monetized.
-Bağımlılıktan kurtulma süreci üzerinden kazanç sağlanmamalıdır.
+"Bad habit" recovery should not be monetized.
+
+"Kötü alışkanlıklardan" kurtulma süreci üzerinden kazanç sağlanmamalıdır.
+
 Inspired by now unmaintained https://github.com/seaglade/Sobriety
 
 English: Medical & Legal Disclaimer

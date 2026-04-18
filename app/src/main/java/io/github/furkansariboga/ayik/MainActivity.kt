@@ -21,6 +21,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -30,10 +32,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.furkansariboga.ayik.presentation.HabitViewModel
 import io.github.furkansariboga.ayik.presentation.add_entry.AddEntryScreen
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
                 Scaffold(
                     topBar = {
-                        if (currentRoute != Screen.Settings.route) {
+                        if (currentRoute == Screen.Dashboard.route) {
                             CenterAlignedTopAppBar(
                                 title = { Text(stringResource(R.string.app_name)) },
                                 actions = {
@@ -73,13 +77,21 @@ class MainActivity : AppCompatActivity() {
                     },
                     floatingActionButton = {
                         if (currentRoute == Screen.Dashboard.route) {
-                            FloatingActionButton(onClick = {
-                                navController.navigate(Screen.AddEntry.route)
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Default.Add,
-                                    contentDescription = stringResource(R.string.add_new_entry)
-                                )
+                            AnimatedVisibility(
+                                visible = true,
+                                enter = scaleIn(tween(300)) + fadeIn(tween(300)),
+                                exit = scaleOut(tween(200)) + fadeOut(tween(200))
+                            ) {
+                                FloatingActionButton(
+                                    onClick = {
+                                        navController.navigate(Screen.AddEntry.createRoute())
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Add,
+                                        contentDescription = stringResource(R.string.add_new_entry)
+                                    )
+                                }
                             }
                         }
                     }
@@ -87,18 +99,43 @@ class MainActivity : AppCompatActivity() {
                     NavHost(
                         navController = navController,
                         startDestination = Screen.Dashboard.route,
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        enterTransition = {
+                            fadeIn(tween(300)) + slideInHorizontally(tween(300)) { it / 4 }
+                        },
+                        exitTransition = {
+                            fadeOut(tween(200)) + slideOutHorizontally(tween(200)) { -it / 4 }
+                        },
+                        popEnterTransition = {
+                            fadeIn(tween(300)) + slideInHorizontally(tween(300)) { -it / 4 }
+                        },
+                        popExitTransition = {
+                            fadeOut(tween(200)) + slideOutHorizontally(tween(200)) { it / 4 }
+                        }
                     ) {
                         composable(Screen.Dashboard.route) {
                             DashboardScreen(
                                 viewModel = viewModel,
-                                onAddEntryClick = { navController.navigate(Screen.AddEntry.route) }
+                                onAddEntryClick = { navController.navigate(Screen.AddEntry.createRoute()) },
+                                onEditClick = { habitId ->
+                                    navController.navigate(Screen.AddEntry.createRoute(habitId))
+                                }
                             )
                         }
-                        composable(Screen.AddEntry.route) {
+                        composable(
+                            route = Screen.AddEntry.route,
+                            arguments = listOf(
+                                navArgument("habitId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                }
+                            )
+                        ) { backStackEntry ->
+                            val habitId = backStackEntry.arguments?.getInt("habitId") ?: -1
                             AddEntryScreen(
                                 viewModel = viewModel,
-                                onNavigateBack = { navController.popBackStack() }
+                                onNavigateBack = { navController.popBackStack() },
+                                habitId = if (habitId != -1) habitId else null
                             )
                         }
                         composable(Screen.Settings.route) {

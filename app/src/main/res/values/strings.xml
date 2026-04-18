@@ -17,4 +17,23 @@
     <string name="select_date_time">Date and Time</string>
     <string name="habit_name_required">Habit name is required</string>
     <string name="empty_dashboard">No trackers yet. Tap + to add one!</string>
+    <string name="daily_cost">Daily Cost</string>
+    <string name="daily_cost_hint">e.g. 5.00</string>
+    <string name="relapse">Relapse</string>
+    <string name="relapse_recorded">Relapse recorded</string>
+    <string name="stats">Statistics</string>
+    <string name="total_savings">Total Savings</string>
+    <string name="last_3_relapses">Last 3 Relapses</string>
+    <string name="avg_time_last_3">Avg. time (last 3)</string>
+    <string name="avg_time_last_5">Avg. time (last 5)</string>
+    <string name="avg_time_last_10">Avg. time (last 10)</string>
+    <string name="relapse_history">Relapse History</string>
+    <string name="no_relapses">No relapses recorded</string>
+    <string name="edit_tracker">Edit Tracker</string>
+    <string name="edit">Edit</string>
+    <string name="confirm_relapse">Are you sure you want to record a relapse?</string>
+    <string name="confirm">Confirm</string>
+    <string name="not_enough_data">Not enough data</string>
+    <string name="total_days_clean">Total days clean</string>
+    <string name="created_on">Created on</string>
 </resources>

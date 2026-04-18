@@ -19,6 +19,10 @@ package io.github.furkansariboga.ayik.presentation.navigation
 
 sealed class Screen(val route: String) {
     object Dashboard : Screen("dashboard")
-    object AddEntry : Screen("add_entry")
+    object AddEntry : Screen("add_entry?habitId={habitId}") {
+        fun createRoute(habitId: Int? = null): String {
+            return if (habitId != null) "add_entry?habitId=$habitId" else "add_entry"
+        }
+    }
     object Settings : Screen("settings")
 }

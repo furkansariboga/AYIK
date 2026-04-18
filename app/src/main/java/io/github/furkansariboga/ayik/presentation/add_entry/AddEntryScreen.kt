@@ -17,14 +17,23 @@
 */
 package io.github.furkansariboga.ayik.presentation.add_entry
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import io.github.furkansariboga.ayik.R
 import io.github.furkansariboga.ayik.presentation.HabitViewModel
@@ -35,11 +44,35 @@ import java.util.*
 @Composable
 fun AddEntryScreen(
     viewModel: HabitViewModel,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    habitId: Int? = null
 ) {
+    val isEditMode = habitId != null && habitId != -1
+
+    // Load existing habit for edit mode
+    val habitFlow = remember(habitId) {
+        if (isEditMode) viewModel.getHabitById(habitId!!) else null
+    }
+    val existingHabit by habitFlow?.collectAsState(initial = null) ?: remember { mutableStateOf(null) }
+
     var habitName by remember { mutableStateOf("") }
     val calendar = remember { Calendar.getInstance() }
     var selectedTimestamp by remember { mutableLongStateOf(calendar.timeInMillis) }
+    var dailyCostText by remember { mutableStateOf("") }
+    var initialized by remember { mutableStateOf(false) }
+
+    // Pre-fill fields in edit mode
+    LaunchedEffect(existingHabit) {
+        existingHabit?.let { habit ->
+            if (!initialized) {
+                habitName = habit.name
+                selectedTimestamp = habit.lastOccurrenceTimestamp
+                dailyCostText = if (habit.dailyCost > 0) habit.dailyCost.toString() else ""
+                calendar.timeInMillis = habit.lastOccurrenceTimestamp
+                initialized = true
+            }
+        }
+    }
 
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = selectedTimestamp
@@ -57,63 +90,137 @@ fun AddEntryScreen(
         sdf.format(Date(selectedTimestamp))
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        OutlinedTextField(
-            value = habitName,
-            onValueChange = { habitName = it },
-            label = { Text(stringResource(R.string.habit_name)) },
-            modifier = Modifier.fillMaxWidth()
-        )
+    // Entrance animations
+    var visible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { visible = true }
 
-        OutlinedTextField(
-            value = formattedDateTime,
-            onValueChange = {},
-            label = { Text(stringResource(R.string.select_date_time)) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { showDatePicker = true },
-            readOnly = true,
-            enabled = false, // To make the whole field clickable
-            trailingIcon = {
-                Icon(imageVector = Icons.Default.DateRange, contentDescription = null)
-            },
-            colors = OutlinedTextFieldDefaults.colors(
-                disabledTextColor = MaterialTheme.colorScheme.onSurface,
-                disabledBorderColor = MaterialTheme.colorScheme.outline,
-                disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            OutlinedButton(
-                onClick = onNavigateBack,
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(stringResource(R.string.cancel))
-            }
-            Button(
-                onClick = {
-                    if (habitName.isNotBlank()) {
-                        viewModel.addHabit(habitName, selectedTimestamp)
-                        onNavigateBack()
-                    }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = if (isEditMode) stringResource(R.string.edit_tracker)
+                        else stringResource(R.string.add_new_entry),
+                        fontWeight = FontWeight.SemiBold
+                    )
                 },
-                modifier = Modifier.weight(1f)
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.cancel)
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            AnimatedVisibility(
+                visible = visible,
+                enter = fadeIn(tween(300)) + slideInVertically(tween(300)) { -it / 4 }
             ) {
-                Text(stringResource(R.string.save))
+                OutlinedTextField(
+                    value = habitName,
+                    onValueChange = { habitName = it },
+                    label = { Text(stringResource(R.string.habit_name)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
+                )
+            }
+
+            AnimatedVisibility(
+                visible = visible,
+                enter = fadeIn(tween(400, delayMillis = 100)) + slideInVertically(tween(400, delayMillis = 100)) { -it / 4 }
+            ) {
+                OutlinedTextField(
+                    value = formattedDateTime,
+                    onValueChange = {},
+                    label = { Text(stringResource(R.string.select_date_time)) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { showDatePicker = true },
+                    readOnly = true,
+                    enabled = false,
+                    trailingIcon = {
+                        Icon(imageVector = Icons.Default.DateRange, contentDescription = null)
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                        disabledBorderColor = MaterialTheme.colorScheme.outline,
+                        disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                )
+            }
+
+            AnimatedVisibility(
+                visible = visible,
+                enter = fadeIn(tween(500, delayMillis = 200)) + slideInVertically(tween(500, delayMillis = 200)) { -it / 4 }
+            ) {
+                OutlinedTextField(
+                    value = dailyCostText,
+                    onValueChange = { newValue ->
+                        // Only allow valid decimal numbers
+                        if (newValue.isEmpty() || newValue.matches(Regex("^\\d*\\.?\\d*$"))) {
+                            dailyCostText = newValue
+                        }
+                    },
+                    label = { Text(stringResource(R.string.daily_cost)) },
+                    placeholder = { Text(stringResource(R.string.daily_cost_hint)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    singleLine = true
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            AnimatedVisibility(
+                visible = visible,
+                enter = fadeIn(tween(600, delayMillis = 300)) + slideInVertically(tween(600, delayMillis = 300)) { it / 4 }
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OutlinedButton(
+                        onClick = onNavigateBack,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(stringResource(R.string.cancel))
+                    }
+                    Button(
+                        onClick = {
+                            if (habitName.isNotBlank()) {
+                                val dailyCost = dailyCostText.toDoubleOrNull() ?: 0.0
+                                if (isEditMode && existingHabit != null) {
+                                    viewModel.updateHabit(
+                                        existingHabit!!.copy(
+                                            name = habitName,
+                                            lastOccurrenceTimestamp = selectedTimestamp,
+                                            dailyCost = dailyCost
+                                        )
+                                    )
+                                } else {
+                                    viewModel.addHabit(habitName, selectedTimestamp, dailyCost)
+                                }
+                                onNavigateBack()
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(stringResource(R.string.save))
+                    }
+                }
             }
         }
     }
@@ -162,7 +269,7 @@ fun AddEntryScreen(
                 }
             },
             text = {
-                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     TimePicker(state = timePickerState)
                 }
             }

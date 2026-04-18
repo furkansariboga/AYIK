@@ -17,4 +17,23 @@
     <string name="select_date_time">日期和時間</string>
     <string name="habit_name_required">習慣名稱為必填項</string>
     <string name="empty_dashboard">尚無追踪器。點擊 + 添加一個！</string>
+    <string name="daily_cost">每日花費</string>
+    <string name="daily_cost_hint">例如 5.00</string>
+    <string name="relapse">復發</string>
+    <string name="relapse_recorded">復發已記錄</string>
+    <string name="stats">統計數據</string>
+    <string name="total_savings">總節省</string>
+    <string name="last_3_relapses">最近3次復發</string>
+    <string name="avg_time_last_3">平均時間（最近3次）</string>
+    <string name="avg_time_last_5">平均時間（最近5次）</string>
+    <string name="avg_time_last_10">平均時間（最近10次）</string>
+    <string name="relapse_history">復發歷史</string>
+    <string name="no_relapses">暫無復發記錄</string>
+    <string name="edit_tracker">編輯追蹤器</string>
+    <string name="edit">編輯</string>
+    <string name="confirm_relapse">確定要記錄一次復發嗎？</string>
+    <string name="confirm">確認</string>
+    <string name="not_enough_data">數據不足</string>
+    <string name="total_days_clean">總清潔天數</string>
+    <string name="created_on">創建於</string>
 </resources>

@@ -40,7 +40,7 @@ object AppModule {
             app,
             HabitDatabase::class.java,
             HabitDatabase.DATABASE_NAME
-        ).build()
+        ).addMigrations(HabitDatabase.MIGRATION_1_2).build()
     }
 
     @Provides

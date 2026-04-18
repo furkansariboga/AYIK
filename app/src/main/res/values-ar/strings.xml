@@ -17,4 +17,23 @@
     <string name="select_date_time">التاريخ والوقت</string>
     <string name="habit_name_required">اسم العادة مطلوب</string>
     <string name="empty_dashboard">لا توجد أجهزة تتبع بعد. اضغط على + لإضافة واحد!</string>
+    <string name="daily_cost">التكلفة اليومية</string>
+    <string name="daily_cost_hint">مثال: 5.00</string>
+    <string name="relapse">انتكاسة</string>
+    <string name="relapse_recorded">تم تسجيل الانتكاسة</string>
+    <string name="stats">الإحصائيات</string>
+    <string name="total_savings">إجمالي التوفير</string>
+    <string name="last_3_relapses">آخر 3 انتكاسات</string>
+    <string name="avg_time_last_3">متوسط الوقت (آخر 3)</string>
+    <string name="avg_time_last_5">متوسط الوقت (آخر 5)</string>
+    <string name="avg_time_last_10">متوسط الوقت (آخر 10)</string>
+    <string name="relapse_history">سجل الانتكاسات</string>
+    <string name="no_relapses">لا توجد انتكاسات مسجلة</string>
+    <string name="edit_tracker">تعديل المتتبع</string>
+    <string name="edit">تعديل</string>
+    <string name="confirm_relapse">هل أنت متأكد أنك تريد تسجيل انتكاسة؟</string>
+    <string name="confirm">تأكيد</string>
+    <string name="not_enough_data">بيانات غير كافية</string>
+    <string name="total_days_clean">إجمالي الأيام النظيفة</string>
+    <string name="created_on">تاريخ الإنشاء</string>
 </resources>

@@ -22,7 +22,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import io.github.furkansariboga.ayik.domain.model.Habit
+import io.github.furkansariboga.ayik.domain.model.Relapse
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -30,9 +32,25 @@ interface HabitDao {
     @Query("SELECT * FROM habits ORDER BY lastOccurrenceTimestamp DESC")
     fun getAllHabits(): Flow<List<Habit>>
 
+    @Query("SELECT * FROM habits WHERE id = :id")
+    fun getHabitById(id: Int): Flow<Habit?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHabit(habit: Habit)
 
+    @Update
+    suspend fun updateHabit(habit: Habit)
+
     @Delete
     suspend fun deleteHabit(habit: Habit)
+
+    // Relapse operations
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRelapse(relapse: Relapse)
+
+    @Query("SELECT * FROM relapses WHERE habitId = :habitId ORDER BY timestamp DESC")
+    fun getRelapsesForHabit(habitId: Int): Flow<List<Relapse>>
+
+    @Query("DELETE FROM relapses WHERE habitId = :habitId")
+    suspend fun deleteRelapsesForHabit(habitId: Int)
 }

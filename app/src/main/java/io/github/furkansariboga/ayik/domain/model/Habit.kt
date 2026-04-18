@@ -25,5 +25,7 @@ data class Habit(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val name: String,
-    val lastOccurrenceTimestamp: Long
+    val lastOccurrenceTimestamp: Long,
+    val dailyCost: Double = 0.0,
+    val createdTimestamp: Long = System.currentTimeMillis()
 )

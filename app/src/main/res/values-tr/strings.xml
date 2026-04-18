@@ -17,4 +17,23 @@
     <string name="select_date_time">Tarih ve Saat</string>
     <string name="habit_name_required">Alışkanlık adı gerekli</string>
     <string name="empty_dashboard">Henüz takipçi yok. Eklemek için + simgesine dokunun!</string>
+    <string name="daily_cost">Günlük Maliyet</string>
+    <string name="daily_cost_hint">ör. 5.00</string>
+    <string name="relapse">Nüks</string>
+    <string name="relapse_recorded">Nüks kaydedildi</string>
+    <string name="stats">İstatistikler</string>
+    <string name="total_savings">Toplam Tasarruf</string>
+    <string name="last_3_relapses">Son 3 Nüks</string>
+    <string name="avg_time_last_3">Ort. süre (son 3)</string>
+    <string name="avg_time_last_5">Ort. süre (son 5)</string>
+    <string name="avg_time_last_10">Ort. süre (son 10)</string>
+    <string name="relapse_history">Nüks Geçmişi</string>
+    <string name="no_relapses">Kaydedilmiş nüks yok</string>
+    <string name="edit_tracker">Takipçiyi Düzenle</string>
+    <string name="edit">Düzenle</string>
+    <string name="confirm_relapse">Nüks kaydetmek istediğinizden emin misiniz?</string>
+    <string name="confirm">Onayla</string>
+    <string name="not_enough_data">Yeterli veri yok</string>
+    <string name="total_days_clean">Toplam temiz gün</string>
+    <string name="created_on">Oluşturulma tarihi</string>
 </resources>

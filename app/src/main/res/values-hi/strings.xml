@@ -17,4 +17,23 @@
     <string name="select_date_time">दिनांक और समय</string>
     <string name="habit_name_required">आदत का नाम आवश्यक है</string>
     <string name="empty_dashboard">अभी तक कोई ट्रैकर नहीं है। एक जोड़ने के लिए + पर टैप करें!</string>
+    <string name="daily_cost">दैनिक लागत</string>
+    <string name="daily_cost_hint">उदा. 5.00</string>
+    <string name="relapse">पुनरावृत्ति</string>
+    <string name="relapse_recorded">पुनरावृत्ति दर्ज की गई</string>
+    <string name="stats">आंकड़े</string>
+    <string name="total_savings">कुल बचत</string>
+    <string name="last_3_relapses">अंतिम 3 पुनरावृत्तियाँ</string>
+    <string name="avg_time_last_3">औसत समय (अंतिम 3)</string>
+    <string name="avg_time_last_5">औसत समय (अंतिम 5)</string>
+    <string name="avg_time_last_10">औसत समय (अंतिम 10)</string>
+    <string name="relapse_history">पुनरावृत्ति इतिहास</string>
+    <string name="no_relapses">कोई पुनरावृत्ति दर्ज नहीं</string>
+    <string name="edit_tracker">ट्रैकर संपादित करें</string>
+    <string name="edit">संपादित करें</string>
+    <string name="confirm_relapse">क्या आप वाकई पुनरावृत्ति दर्ज करना चाहते हैं?</string>
+    <string name="confirm">पुष्टि करें</string>
+    <string name="not_enough_data">पर्याप्त डेटा नहीं</string>
+    <string name="total_days_clean">कुल स्वच्छ दिन</string>
+    <string name="created_on">बनाया गया</string>
 </resources>

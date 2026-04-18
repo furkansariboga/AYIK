@@ -19,6 +19,7 @@ package io.github.furkansariboga.ayik.data.repository
 
 import io.github.furkansariboga.ayik.data.local.HabitDao
 import io.github.furkansariboga.ayik.domain.model.Habit
+import io.github.furkansariboga.ayik.domain.model.Relapse
 import io.github.furkansariboga.ayik.domain.repository.HabitRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -28,11 +29,29 @@ class HabitRepositoryImpl @Inject constructor(
 ) : HabitRepository {
     override fun getAllHabits(): Flow<List<Habit>> = dao.getAllHabits()
 
+    override fun getHabitById(id: Int): Flow<Habit?> = dao.getHabitById(id)
+
     override suspend fun insertHabit(habit: Habit) {
         dao.insertHabit(habit)
     }
 
+    override suspend fun updateHabit(habit: Habit) {
+        dao.updateHabit(habit)
+    }
+
     override suspend fun deleteHabit(habit: Habit) {
         dao.deleteHabit(habit)
+    }
+
+    // Relapse operations
+    override suspend fun insertRelapse(relapse: Relapse) {
+        dao.insertRelapse(relapse)
+    }
+
+    override fun getRelapsesForHabit(habitId: Int): Flow<List<Relapse>> =
+        dao.getRelapsesForHabit(habitId)
+
+    override suspend fun deleteRelapsesForHabit(habitId: Int) {
+        dao.deleteRelapsesForHabit(habitId)
     }
 }

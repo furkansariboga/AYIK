@@ -17,4 +17,23 @@
     <string name="select_date_time">日期和时间</string>
     <string name="habit_name_required">习惯名称为必填项</string>
     <string name="empty_dashboard">尚无追踪器。点击 + 添加一个！</string>
+    <string name="daily_cost">每日花费</string>
+    <string name="daily_cost_hint">例如 5.00</string>
+    <string name="relapse">复发</string>
+    <string name="relapse_recorded">复发已记录</string>
+    <string name="stats">统计数据</string>
+    <string name="total_savings">总节省</string>
+    <string name="last_3_relapses">最近3次复发</string>
+    <string name="avg_time_last_3">平均时间（最近3次）</string>
+    <string name="avg_time_last_5">平均时间（最近5次）</string>
+    <string name="avg_time_last_10">平均时间（最近10次）</string>
+    <string name="relapse_history">复发历史</string>
+    <string name="no_relapses">暂无复发记录</string>
+    <string name="edit_tracker">编辑追踪器</string>
+    <string name="edit">编辑</string>
+    <string name="confirm_relapse">确定要记录一次复发吗？</string>
+    <string name="confirm">确认</string>
+    <string name="not_enough_data">数据不足</string>
+    <string name="total_days_clean">总清洁天数</string>
+    <string name="created_on">创建于</string>
 </resources>

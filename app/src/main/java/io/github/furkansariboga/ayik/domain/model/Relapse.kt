@@ -15,21 +15,26 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-package io.github.furkansariboga.ayik.domain.repository
+package io.github.furkansariboga.ayik.domain.model
 
-import io.github.furkansariboga.ayik.domain.model.Habit
-import io.github.furkansariboga.ayik.domain.model.Relapse
-import kotlinx.coroutines.flow.Flow
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
 
-interface HabitRepository {
-    fun getAllHabits(): Flow<List<Habit>>
-    fun getHabitById(id: Int): Flow<Habit?>
-    suspend fun insertHabit(habit: Habit)
-    suspend fun updateHabit(habit: Habit)
-    suspend fun deleteHabit(habit: Habit)
-
-    // Relapse operations
-    suspend fun insertRelapse(relapse: Relapse)
-    fun getRelapsesForHabit(habitId: Int): Flow<List<Relapse>>
-    suspend fun deleteRelapsesForHabit(habitId: Int)
-}
+@Entity(
+    tableName = "relapses",
+    foreignKeys = [ForeignKey(
+        entity = Habit::class,
+        parentColumns = ["id"],
+        childColumns = ["habitId"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["habitId"])]
+)
+data class Relapse(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val habitId: Int,
+    val timestamp: Long = System.currentTimeMillis()
+)

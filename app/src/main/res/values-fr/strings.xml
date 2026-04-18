@@ -17,4 +17,23 @@
     <string name="select_date_time">Date et heure</string>
     <string name="habit_name_required">Le nom de l\'habitude est requis</string>
     <string name="empty_dashboard">Pas encore de trackers. Appuyez sur + pour en ajouter un !</string>
+    <string name="daily_cost">Coût journalier</string>
+    <string name="daily_cost_hint">ex. 5.00</string>
+    <string name="relapse">Rechute</string>
+    <string name="relapse_recorded">Rechute enregistrée</string>
+    <string name="stats">Statistiques</string>
+    <string name="total_savings">Économies totales</string>
+    <string name="last_3_relapses">3 dernières rechutes</string>
+    <string name="avg_time_last_3">Temps moy. (3 dernières)</string>
+    <string name="avg_time_last_5">Temps moy. (5 dernières)</string>
+    <string name="avg_time_last_10">Temps moy. (10 dernières)</string>
+    <string name="relapse_history">Historique des rechutes</string>
+    <string name="no_relapses">Aucune rechute enregistrée</string>
+    <string name="edit_tracker">Modifier le tracker</string>
+    <string name="edit">Modifier</string>
+    <string name="confirm_relapse">Êtes-vous sûr de vouloir enregistrer une rechute ?</string>
+    <string name="confirm">Confirmer</string>
+    <string name="not_enough_data">Données insuffisantes</string>
+    <string name="total_days_clean">Nombre total de jours sobres</string>
+    <string name="created_on">Créé le</string>
 </resources>

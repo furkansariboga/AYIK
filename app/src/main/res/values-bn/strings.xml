@@ -17,4 +17,23 @@
     <string name="select_date_time">তারিখ ও সময়</string>
     <string name="habit_name_required">অভ্যাসের নাম আবশ্যক</string>
     <string name="empty_dashboard">এখনও কোনো ট্র্যাকার নেই। একটি যোগ করতে + এ আলতো চাপুন!</string>
+    <string name="daily_cost">দৈনিক খরচ</string>
+    <string name="daily_cost_hint">যেমন 5.00</string>
+    <string name="relapse">পুনরাবৃত্তি</string>
+    <string name="relapse_recorded">পুনরাবৃত্তি রেকর্ড করা হয়েছে</string>
+    <string name="stats">পরিসংখ্যান</string>
+    <string name="total_savings">মোট সঞ্চয়</string>
+    <string name="last_3_relapses">শেষ ৩ পুনরাবৃত্তি</string>
+    <string name="avg_time_last_3">গড় সময় (শেষ ৩)</string>
+    <string name="avg_time_last_5">গড় সময় (শেষ ৫)</string>
+    <string name="avg_time_last_10">গড় সময় (শেষ ১০)</string>
+    <string name="relapse_history">পুনরাবৃত্তি ইতিহাস</string>
+    <string name="no_relapses">কোনো পুনরাবৃত্তি রেকর্ড নেই</string>
+    <string name="edit_tracker">ট্র্যাকার সম্পাদনা করুন</string>
+    <string name="edit">সম্পাদনা</string>
+    <string name="confirm_relapse">আপনি কি নিশ্চিতভাবে পুনরাবৃত্তি রেকর্ড করতে চান?</string>
+    <string name="confirm">নিশ্চিত করুন</string>
+    <string name="not_enough_data">পর্যাপ্ত তথ্য নেই</string>
+    <string name="total_days_clean">মোট পরিষ্কার দিন</string>
+    <string name="created_on">তৈরির তারিখ</string>
 </resources>

@@ -17,4 +17,23 @@
     <string name="select_date_time">Tanggal dan Waktu</string>
     <string name="habit_name_required">Nama kebiasaan diperlukan</string>
     <string name="empty_dashboard">Belum ada pelacak. Ketuk + untuk menambahkan!</string>
+    <string name="daily_cost">Biaya Harian</string>
+    <string name="daily_cost_hint">mis. 5.00</string>
+    <string name="relapse">Kambuh</string>
+    <string name="relapse_recorded">Kambuh tercatat</string>
+    <string name="stats">Statistik</string>
+    <string name="total_savings">Total Tabungan</string>
+    <string name="last_3_relapses">3 Kambuh Terakhir</string>
+    <string name="avg_time_last_3">Waktu rata-rata (3 terakhir)</string>
+    <string name="avg_time_last_5">Waktu rata-rata (5 terakhir)</string>
+    <string name="avg_time_last_10">Waktu rata-rata (10 terakhir)</string>
+    <string name="relapse_history">Riwayat Kambuh</string>
+    <string name="no_relapses">Belum ada kambuh tercatat</string>
+    <string name="edit_tracker">Edit Pelacak</string>
+    <string name="edit">Edit</string>
+    <string name="confirm_relapse">Apakah Anda yakin ingin mencatat kambuh?</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="not_enough_data">Data tidak cukup</string>
+    <string name="total_days_clean">Total hari bersih</string>
+    <string name="created_on">Dibuat pada</string>
 </resources>

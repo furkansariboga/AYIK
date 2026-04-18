@@ -17,4 +17,23 @@
     <string name="select_date_time">تاریخ اور وقت</string>
     <string name="habit_name_required">عادت کا نام ضروری ہے</string>
     <string name="empty_dashboard">ابھی تک کوئی ٹریکر نہیں ہے۔ شامل کرنے کے لیے + پر ٹیپ کریں!</string>
+    <string name="daily_cost">یومیہ لاگت</string>
+    <string name="daily_cost_hint">مثلاً 5.00</string>
+    <string name="relapse">دوبارہ لوٹنا</string>
+    <string name="relapse_recorded">دوبارہ لوٹنا ریکارڈ ہو گیا</string>
+    <string name="stats">اعداد و شمار</string>
+    <string name="total_savings">کل بچت</string>
+    <string name="last_3_relapses">آخری 3 دوبارہ لوٹنا</string>
+    <string name="avg_time_last_3">اوسط وقت (آخری 3)</string>
+    <string name="avg_time_last_5">اوسط وقت (آخری 5)</string>
+    <string name="avg_time_last_10">اوسط وقت (آخری 10)</string>
+    <string name="relapse_history">دوبارہ لوٹنے کی تاریخ</string>
+    <string name="no_relapses">کوئی ریکارڈ نہیں</string>
+    <string name="edit_tracker">ٹریکر میں ترمیم کریں</string>
+    <string name="edit">ترمیم</string>
+    <string name="confirm_relapse">کیا آپ واقعی دوبارہ لوٹنا ریکارڈ کرنا چاہتے ہیں؟</string>
+    <string name="confirm">تصدیق کریں</string>
+    <string name="not_enough_data">کافی ڈیٹا نہیں</string>
+    <string name="total_days_clean">کل صاف دن</string>
+    <string name="created_on">تخلیق کی تاریخ</string>
 </resources>

@@ -17,4 +17,23 @@
     <string name="select_date_time">Fecha y hora</string>
     <string name="habit_name_required">El nombre del hábito es obligatorio</string>
     <string name="empty_dashboard">Aún no hay rastreadores. ¡Toca + para añadir uno!</string>
+    <string name="daily_cost">Costo diario</string>
+    <string name="daily_cost_hint">ej. 5.00</string>
+    <string name="relapse">Recaída</string>
+    <string name="relapse_recorded">Recaída registrada</string>
+    <string name="stats">Estadísticas</string>
+    <string name="total_savings">Ahorro total</string>
+    <string name="last_3_relapses">Últimas 3 recaídas</string>
+    <string name="avg_time_last_3">Tiempo prom. (últimas 3)</string>
+    <string name="avg_time_last_5">Tiempo prom. (últimas 5)</string>
+    <string name="avg_time_last_10">Tiempo prom. (últimas 10)</string>
+    <string name="relapse_history">Historial de recaídas</string>
+    <string name="no_relapses">No hay recaídas registradas</string>
+    <string name="edit_tracker">Editar rastreador</string>
+    <string name="edit">Editar</string>
+    <string name="confirm_relapse">¿Estás seguro de que quieres registrar una recaída?</string>
+    <string name="confirm">Confirmar</string>
+    <string name="not_enough_data">Datos insuficientes</string>
+    <string name="total_days_clean">Total de días limpio</string>
+    <string name="created_on">Creado el</string>
 </resources>

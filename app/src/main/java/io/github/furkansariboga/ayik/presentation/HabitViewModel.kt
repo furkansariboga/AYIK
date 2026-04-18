@@ -21,7 +21,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.furkansariboga.ayik.domain.model.Habit
+import io.github.furkansariboga.ayik.domain.model.Relapse
 import io.github.furkansariboga.ayik.domain.repository.HabitRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -36,9 +38,22 @@ class HabitViewModel @Inject constructor(
     val habits: StateFlow<List<Habit>> = repository.getAllHabits()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun addHabit(name: String, timestamp: Long) {
+    fun addHabit(name: String, timestamp: Long, dailyCost: Double = 0.0) {
         viewModelScope.launch {
-            repository.insertHabit(Habit(name = name, lastOccurrenceTimestamp = timestamp))
+            repository.insertHabit(
+                Habit(
+                    name = name,
+                    lastOccurrenceTimestamp = timestamp,
+                    dailyCost = dailyCost,
+                    createdTimestamp = timestamp
+                )
+            )
+        }
+    }
+
+    fun updateHabit(habit: Habit) {
+        viewModelScope.launch {
+            repository.updateHabit(habit)
         }
     }
 
@@ -46,5 +61,23 @@ class HabitViewModel @Inject constructor(
         viewModelScope.launch {
             repository.deleteHabit(habit)
         }
+    }
+
+    fun addRelapse(habit: Habit) {
+        val now = System.currentTimeMillis()
+        viewModelScope.launch {
+            // Record the relapse
+            repository.insertRelapse(Relapse(habitId = habit.id, timestamp = now))
+            // Update the habit's lastOccurrenceTimestamp so the counter resets
+            repository.updateHabit(habit.copy(lastOccurrenceTimestamp = now))
+        }
+    }
+
+    fun getRelapsesForHabit(habitId: Int): Flow<List<Relapse>> {
+        return repository.getRelapsesForHabit(habitId)
+    }
+
+    fun getHabitById(id: Int): Flow<Habit?> {
+        return repository.getHabitById(id)
     }
 }

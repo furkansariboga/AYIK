@@ -36,4 +36,7 @@
     <string name="not_enough_data">數據不足</string>
     <string name="total_days_clean">總清潔天數</string>
     <string name="created_on">創建於</string>
+    <string name="delete_tracker">刪除追蹤器</string>
+    <string name="confirm_delete">確定要刪除此追蹤器嗎？所有數據將永久丟失。</string>
+    <string name="delete">刪除</string>
 </resources>

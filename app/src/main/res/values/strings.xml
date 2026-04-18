@@ -36,4 +36,7 @@
     <string name="not_enough_data">Not enough data</string>
     <string name="total_days_clean">Total days clean</string>
     <string name="created_on">Created on</string>
+    <string name="delete_tracker">Delete Tracker</string>
+    <string name="confirm_delete">Are you sure you want to delete this tracker? All data will be permanently lost.</string>
+    <string name="delete">Delete</string>
 </resources>

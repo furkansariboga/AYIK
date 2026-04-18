@@ -36,4 +36,7 @@
     <string name="not_enough_data">পর্যাপ্ত তথ্য নেই</string>
     <string name="total_days_clean">মোট পরিষ্কার দিন</string>
     <string name="created_on">তৈরির তারিখ</string>
+    <string name="delete_tracker">ট্র্যাকার মুছুন</string>
+    <string name="confirm_delete">আপনি কি নিশ্চিতভাবে এই ট্র্যাকারটি মুছতে চান? সমস্ত তথ্য স্থায়ীভাবে হারিয়ে যাবে।</string>
+    <string name="delete">মুছুন</string>
 </resources>

@@ -36,4 +36,7 @@
     <string name="not_enough_data">Données insuffisantes</string>
     <string name="total_days_clean">Nombre total de jours sobres</string>
     <string name="created_on">Créé le</string>
+    <string name="delete_tracker">Supprimer le tracker</string>
+    <string name="confirm_delete">Êtes-vous sûr de vouloir supprimer ce tracker ? Toutes les données seront définitivement perdues.</string>
+    <string name="delete">Supprimer</string>
 </resources>

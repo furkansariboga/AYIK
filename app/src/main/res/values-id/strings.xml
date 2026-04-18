@@ -36,4 +36,7 @@
     <string name="not_enough_data">Data tidak cukup</string>
     <string name="total_days_clean">Total hari bersih</string>
     <string name="created_on">Dibuat pada</string>
+    <string name="delete_tracker">Hapus Pelacak</string>
+    <string name="confirm_delete">Apakah Anda yakin ingin menghapus pelacak ini? Semua data akan hilang secara permanen.</string>
+    <string name="delete">Hapus</string>
 </resources>

@@ -36,4 +36,7 @@
     <string name="not_enough_data">पर्याप्त डेटा नहीं</string>
     <string name="total_days_clean">कुल स्वच्छ दिन</string>
     <string name="created_on">बनाया गया</string>
+    <string name="delete_tracker">ट्रैकर हटाएं</string>
+    <string name="confirm_delete">क्या आप वाकई इस ट्रैकर को हटाना चाहते हैं? सभी डेटा स्थायी रूप से खो जाएगा।</string>
+    <string name="delete">हटाएं</string>
 </resources>

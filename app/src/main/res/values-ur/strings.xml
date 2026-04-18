@@ -36,4 +36,7 @@
     <string name="not_enough_data">کافی ڈیٹا نہیں</string>
     <string name="total_days_clean">کل صاف دن</string>
     <string name="created_on">تخلیق کی تاریخ</string>
+    <string name="delete_tracker">ٹریکر حذف کریں</string>
+    <string name="confirm_delete">کیا آپ واقعی اس ٹریکر کو حذف کرنا چاہتے ہیں؟ تمام ڈیٹا مستقل طور پر ضائع ہو جائے گا۔</string>
+    <string name="delete">حذف کریں</string>
 </resources>

@@ -36,4 +36,7 @@
     <string name="not_enough_data">بيانات غير كافية</string>
     <string name="total_days_clean">إجمالي الأيام النظيفة</string>
     <string name="created_on">تاريخ الإنشاء</string>
+    <string name="delete_tracker">حذف المتتبع</string>
+    <string name="confirm_delete">هل أنت متأكد أنك تريد حذف هذا المتتبع؟ سيتم فقدان جميع البيانات بشكل دائم.</string>
+    <string name="delete">حذف</string>
 </resources>

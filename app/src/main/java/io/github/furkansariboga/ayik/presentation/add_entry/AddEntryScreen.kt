@@ -27,6 +27,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -60,15 +61,18 @@ fun AddEntryScreen(
     var selectedTimestamp by remember { mutableLongStateOf(calendar.timeInMillis) }
     var dailyCostText by remember { mutableStateOf("") }
     var initialized by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     // Pre-fill fields in edit mode
+    // Use createdTimestamp for the date field, NOT lastOccurrenceTimestamp
+    // This ensures the start date is preserved even after relapses
     LaunchedEffect(existingHabit) {
         existingHabit?.let { habit ->
             if (!initialized) {
                 habitName = habit.name
-                selectedTimestamp = habit.lastOccurrenceTimestamp
+                selectedTimestamp = habit.createdTimestamp
                 dailyCostText = if (habit.dailyCost > 0) habit.dailyCost.toString() else ""
-                calendar.timeInMillis = habit.lastOccurrenceTimestamp
+                calendar.timeInMillis = habit.createdTimestamp
                 initialized = true
             }
         }
@@ -110,6 +114,17 @@ fun AddEntryScreen(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.cancel)
                         )
+                    }
+                },
+                actions = {
+                    if (isEditMode && existingHabit != null) {
+                        IconButton(onClick = { showDeleteDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = stringResource(R.string.delete_tracker),
+                                tint = MaterialTheme.colorScheme.error
+                            )
+                        }
                     }
                 }
             )
@@ -203,11 +218,22 @@ fun AddEntryScreen(
                             if (habitName.isNotBlank()) {
                                 val dailyCost = dailyCostText.toDoubleOrNull() ?: 0.0
                                 if (isEditMode && existingHabit != null) {
+                                    val habit = existingHabit!!
+                                    // Only update createdTimestamp with the selected date.
+                                    // If no relapses have occurred (lastOccurrence == old createdTimestamp),
+                                    // also update lastOccurrenceTimestamp so the counter reflects the new start date.
+                                    // Otherwise, keep lastOccurrenceTimestamp at the last relapse time.
+                                    val newLastOccurrence = if (habit.lastOccurrenceTimestamp == habit.createdTimestamp) {
+                                        selectedTimestamp
+                                    } else {
+                                        habit.lastOccurrenceTimestamp
+                                    }
                                     viewModel.updateHabit(
-                                        existingHabit!!.copy(
+                                        habit.copy(
                                             name = habitName,
-                                            lastOccurrenceTimestamp = selectedTimestamp,
-                                            dailyCost = dailyCost
+                                            lastOccurrenceTimestamp = newLastOccurrence,
+                                            dailyCost = dailyCost,
+                                            createdTimestamp = selectedTimestamp
                                         )
                                     )
                                 } else {
@@ -223,6 +249,48 @@ fun AddEntryScreen(
                 }
             }
         }
+    }
+
+    // Delete confirmation dialog
+    if (showDeleteDialog && existingHabit != null) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error
+                )
+            },
+            title = {
+                Text(
+                    text = stringResource(R.string.delete_tracker),
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(stringResource(R.string.confirm_delete))
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.deleteHabit(existingHabit!!)
+                        showDeleteDialog = false
+                        onNavigateBack()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text(stringResource(R.string.delete))
+                }
+            },
+            dismissButton = {
+                OutlinedButton(onClick = { showDeleteDialog = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
     }
 
     if (showDatePicker) {

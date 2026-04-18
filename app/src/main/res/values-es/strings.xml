@@ -36,4 +36,7 @@
     <string name="not_enough_data">Datos insuficientes</string>
     <string name="total_days_clean">Total de días limpio</string>
     <string name="created_on">Creado el</string>
+    <string name="delete_tracker">Eliminar rastreador</string>
+    <string name="confirm_delete">¿Estás seguro de que quieres eliminar este rastreador? Todos los datos se perderán permanentemente.</string>
+    <string name="delete">Eliminar</string>
 </resources>

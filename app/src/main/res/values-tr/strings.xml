@@ -36,4 +36,7 @@
     <string name="not_enough_data">Yeterli veri yok</string>
     <string name="total_days_clean">Toplam temiz gün</string>
     <string name="created_on">Oluşturulma tarihi</string>
+    <string name="delete_tracker">Takipçiyi Sil</string>
+    <string name="confirm_delete">Bu takipçiyi silmek istediğinizden emin misiniz? Tüm veriler kalıcı olarak silinecektir.</string>
+    <string name="delete">Sil</string>
 </resources>

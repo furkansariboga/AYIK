@@ -13,9 +13,9 @@ import androidx.glance.*
 import androidx.glance.appwidget.*
 import androidx.glance.layout.*
 import androidx.glance.text.*
-import androidx.glance.unit.ColorProvider
 import io.github.furkansariboga.ayik.R
 import java.util.concurrent.TimeUnit
+import androidx.glance.material3.ColorProviders
 
 class CounterSmallWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
@@ -26,7 +26,11 @@ class CounterSmallWidget : GlanceAppWidget() {
         val days = TimeUnit.MILLISECONDS.toDays(elapsed)
         val hours = TimeUnit.MILLISECONDS.toHours(elapsed) % 24
 
-        provideContent { CounterSmallContent(name, days, hours) }
+        provideContent { 
+            GlanceTheme {
+                CounterSmallContent(name, days, hours) 
+            }
+        }
     }
 }
 
@@ -34,17 +38,17 @@ class CounterSmallWidget : GlanceAppWidget() {
 private fun CounterSmallContent(name: String, days: Long, hours: Long) {
     Column(
         modifier = GlanceModifier.fillMaxSize().padding(8.dp).cornerRadius(16.dp)
-            .background(androidx.glance.R.color.glance_colorBackground),
+            .background(GlanceTheme.colors.surface),
         verticalAlignment = Alignment.CenterVertically,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "${days}d ${hours}h",
-            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp, color = ColorProvider(R.color.purple_500))
+            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp, color = GlanceTheme.colors.primary)
         )
         Text(
             text = name,
-            style = TextStyle(fontSize = 11.sp, color = ColorProvider(R.color.black)),
+            style = TextStyle(fontSize = 11.sp, color = GlanceTheme.colors.onSurface),
             maxLines = 1
         )
     }

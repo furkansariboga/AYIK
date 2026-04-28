@@ -20,12 +20,18 @@ val Context.widgetDataStore by preferencesDataStore(name = "widget_prefs")
 object WidgetDataHelper {
 
     fun habitIdKey(appWidgetId: Int) = intPreferencesKey("widget_habit_$appWidgetId")
+    val updateIntervalKey = intPreferencesKey("widget_update_interval")
 
     suspend fun getHabitForWidget(context: Context, appWidgetId: Int): Habit? {
         val prefs = context.widgetDataStore.data.first()
         val habitId = prefs[habitIdKey(appWidgetId)] ?: return null
         val db = getDatabase(context)
         return db.habitDao.getHabitByIdSync(habitId)
+    }
+
+    suspend fun getUpdateIntervalMinutes(context: Context): Int {
+        val prefs = context.widgetDataStore.data.first()
+        return prefs[updateIntervalKey] ?: 30
     }
 
     suspend fun getAllHabits(context: Context): List<Habit> {

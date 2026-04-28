@@ -24,7 +24,7 @@ object WidgetHeatmapRenderer {
         restTokens: List<RestToken>,
         widthDp: Int,
         heightDp: Int,
-        weeks: Int = 12,
+        weeks: Int = 52,
         isDarkMode: Boolean = false
     ): Bitmap {
         val density = context.resources.displayMetrics.density
@@ -34,8 +34,23 @@ object WidgetHeatmapRenderer {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
-        val cellSize = (width.toFloat() / weeks / 1.15f).coerceAtMost(height / 7f / 1.15f)
-        val spacing = cellSize * 0.15f
+        // Calculate exact cell size to fit all 52 weeks without wasting space
+        // spacing is 20% of cell size
+        val spacingRatio = 0.2f
+        val widthNeededUnits = weeks + (weeks - 1) * spacingRatio
+        val heightNeededUnits = 7 + 6 * spacingRatio
+        
+        val cellSizeByWidth = width.toFloat() / widthNeededUnits
+        val cellSizeByHeight = height.toFloat() / heightNeededUnits
+        
+        val cellSize = minOf(cellSizeByWidth, cellSizeByHeight)
+        val spacing = cellSize * spacingRatio
+
+        // Center the heatmap if there's any leftover space
+        val totalWidth = (weeks * cellSize) + ((weeks - 1) * spacing)
+        val totalHeight = (7 * cellSize) + (6 * spacing)
+        val startX = (width - totalWidth) / 2f
+        val startY = (height - totalHeight) / 2f
 
         // Colors
         val cleanColor = if (isDarkMode) 0xFF7C4DFF.toInt() else 0xFF6200EE.toInt()
@@ -70,8 +85,8 @@ object WidgetHeatmapRenderer {
                 currentCal.set(Calendar.DAY_OF_WEEK, currentCal.firstDayOfWeek)
                 currentCal.add(Calendar.DAY_OF_YEAR, day)
 
-                val x = week * (cellSize + spacing)
-                val y = day * (cellSize + spacing)
+                val x = startX + week * (cellSize + spacing)
+                val y = startY + day * (cellSize + spacing)
 
                 currentCal.set(Calendar.HOUR_OF_DAY, 0); currentCal.set(Calendar.MINUTE, 0)
                 currentCal.set(Calendar.SECOND, 0); currentCal.set(Calendar.MILLISECOND, 0)
@@ -87,7 +102,8 @@ object WidgetHeatmapRenderer {
                     else -> cleanColorLight
                 }
 
-                canvas.drawRoundRect(RectF(x, y, x + cellSize, y + cellSize), 3f, 3f, paint)
+                val cornerRadius = cellSize * 0.2f
+                canvas.drawRoundRect(RectF(x, y, x + cellSize, y + cellSize), cornerRadius, cornerRadius, paint)
             }
         }
 

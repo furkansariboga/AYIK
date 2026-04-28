@@ -13,7 +13,6 @@ import androidx.glance.*
 import androidx.glance.appwidget.*
 import androidx.glance.layout.*
 import androidx.glance.text.*
-import androidx.glance.unit.ColorProvider
 import io.github.furkansariboga.ayik.R
 import java.util.concurrent.TimeUnit
 
@@ -27,7 +26,11 @@ class CounterMediumWidget : GlanceAppWidget() {
         val hours = TimeUnit.MILLISECONDS.toHours(elapsed) % 24
         val minutes = TimeUnit.MILLISECONDS.toMinutes(elapsed) % 60
 
-        provideContent { CounterMediumContent(name, days, hours, minutes) }
+        provideContent { 
+            GlanceTheme {
+                CounterMediumContent(name, days, hours, minutes) 
+            }
+        }
     }
 }
 
@@ -35,19 +38,19 @@ class CounterMediumWidget : GlanceAppWidget() {
 private fun CounterMediumContent(name: String, days: Long, hours: Long, minutes: Long) {
     Row(
         modifier = GlanceModifier.fillMaxSize().padding(12.dp).cornerRadius(16.dp)
-            .background(androidx.glance.R.color.glance_colorBackground),
+            .background(GlanceTheme.colors.surface),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = GlanceModifier.defaultWeight(), horizontalAlignment = Alignment.Start) {
             Text(
                 text = name,
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 14.sp, color = ColorProvider(R.color.black)),
+                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 14.sp, color = GlanceTheme.colors.onSurface),
                 maxLines = 1
             )
             Spacer(modifier = GlanceModifier.height(4.dp))
             Text(
                 text = "${days}d ${hours}h ${minutes}m",
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp, color = ColorProvider(R.color.purple_500))
+                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp, color = GlanceTheme.colors.primary)
             )
         }
     }

@@ -103,6 +103,15 @@
                 android:resource="@xml/widget_heatmap_large_info" />
         </receiver>
 
+        <!-- Alarm Receiver for Widget Updates -->
+        <receiver
+            android:name=".widget.WidgetAlarmReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="io.github.furkansariboga.ayik.FORCE_WIDGET_UPDATE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

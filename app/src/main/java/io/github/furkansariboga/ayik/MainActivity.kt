@@ -37,6 +37,10 @@ import io.github.furkansariboga.ayik.presentation.settings.SettingsScreen
 import io.github.furkansariboga.ayik.security.SecurityManager
 import io.github.furkansariboga.ayik.ui.theme.AYIKTheme
 import io.github.furkansariboga.ayik.util.MilestoneNotificationHelper
+import io.github.furkansariboga.ayik.widget.WidgetUpdateManager
+import io.github.furkansariboga.ayik.widget.WidgetDataHelper
+import kotlinx.coroutines.launch
+import androidx.lifecycle.lifecycleScope
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -47,6 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         val securityManager = SecurityManager(this)
         MilestoneNotificationHelper.createNotificationChannel(this)
+
+        // Initialize widget update schedule
+        lifecycleScope.launch {
+            val interval = WidgetDataHelper.getUpdateIntervalMinutes(this@MainActivity)
+            WidgetUpdateManager.scheduleUpdates(this@MainActivity, interval)
+        }
 
         setContent {
             AYIKTheme {

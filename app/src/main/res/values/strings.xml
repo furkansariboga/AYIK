@@ -110,4 +110,10 @@
     <string name="widget_heatmap_small_desc">Shows counter with mini heatmap</string>
     <string name="widget_heatmap_medium_desc">Shows counter with 8-week heatmap</string>
     <string name="widget_heatmap_large_desc">Shows counter with 12-week heatmap</string>
+
+    <!-- Widget Settings -->
+    <string name="widget_update_interval">Widget Update Interval</string>
+    <string name="battery_warning_title">Battery Consumption Warning</string>
+    <string name="battery_warning_desc">Selecting an interval of 1, 5, or 10 minutes uses AlarmManager and will significantly increase battery drain. Android may also throttle these exact alarms. Are you sure you want to proceed?</string>
+    <string name="proceed">Proceed</string>
 </resources>

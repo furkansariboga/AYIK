@@ -14,7 +14,6 @@ import androidx.glance.*
 import androidx.glance.appwidget.*
 import androidx.glance.layout.*
 import androidx.glance.text.*
-import androidx.glance.unit.ColorProvider
 import io.github.furkansariboga.ayik.R
 import java.util.concurrent.TimeUnit
 
@@ -31,10 +30,14 @@ class HeatmapSmallWidget : GlanceAppWidget() {
             val relapses = WidgetDataHelper.getRelapsesForHabit(context, habit.id)
             val restTokens = WidgetDataHelper.getRestTokensForHabit(context, habit.id)
             val isDark = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-            WidgetHeatmapRenderer.renderHeatmap(context, habit.createdTimestamp, relapses, restTokens, 180, 80, weeks = 4, isDarkMode = isDark)
+            WidgetHeatmapRenderer.renderHeatmap(context, habit.createdTimestamp, relapses, restTokens, 180, 80, weeks = 52, isDarkMode = isDark)
         } else null
 
-        provideContent { HeatmapSmallContent(name, days, hours, heatmapBitmap) }
+        provideContent { 
+            GlanceTheme {
+                HeatmapSmallContent(name, days, hours, heatmapBitmap) 
+            }
+        }
     }
 }
 
@@ -42,12 +45,12 @@ class HeatmapSmallWidget : GlanceAppWidget() {
 private fun HeatmapSmallContent(name: String, days: Long, hours: Long, heatmapBitmap: android.graphics.Bitmap?) {
     Column(
         modifier = GlanceModifier.fillMaxSize().padding(8.dp).cornerRadius(16.dp)
-            .background(androidx.glance.R.color.glance_colorBackground),
+            .background(GlanceTheme.colors.surface),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = name, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 12.sp, color = ColorProvider(R.color.black)), maxLines = 1)
+        Text(text = name, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 12.sp, color = GlanceTheme.colors.onSurface), maxLines = 1)
         Spacer(modifier = GlanceModifier.height(2.dp))
-        Text(text = "${days}d ${hours}h", style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp, color = ColorProvider(R.color.purple_500)))
+        Text(text = "${days}d ${hours}h", style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp, color = GlanceTheme.colors.primary))
         Spacer(modifier = GlanceModifier.height(4.dp))
         if (heatmapBitmap != null) {
             Image(provider = ImageProvider(heatmapBitmap), contentDescription = "Heatmap", modifier = GlanceModifier.fillMaxWidth().height(50.dp))

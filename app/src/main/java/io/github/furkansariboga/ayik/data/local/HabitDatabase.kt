@@ -22,9 +22,15 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import io.github.furkansariboga.ayik.domain.model.Habit
+import io.github.furkansariboga.ayik.domain.model.Milestone
 import io.github.furkansariboga.ayik.domain.model.Relapse
+import io.github.furkansariboga.ayik.domain.model.RestToken
 
-@Database(entities = [Habit::class, Relapse::class], version = 2, exportSchema = false)
+@Database(
+    entities = [Habit::class, Relapse::class, RestToken::class, Milestone::class],
+    version = 3,
+    exportSchema = false
+)
 abstract class HabitDatabase : RoomDatabase() {
     abstract val habitDao: HabitDao
 
@@ -49,6 +55,46 @@ abstract class HabitDatabase : RoomDatabase() {
                     )
                 """.trimIndent())
                 db.execSQL("CREATE INDEX IF NOT EXISTS index_relapses_habitId ON relapses(habitId)")
+            }
+        }
+
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // Add dailyTimeMinutes to habits
+                db.execSQL("ALTER TABLE habits ADD COLUMN dailyTimeMinutes INTEGER NOT NULL DEFAULT 0")
+
+                // Add journal fields to relapses
+                db.execSQL("ALTER TABLE relapses ADD COLUMN journalNote TEXT NOT NULL DEFAULT ''")
+                db.execSQL("ALTER TABLE relapses ADD COLUMN trigger TEXT NOT NULL DEFAULT ''")
+                db.execSQL("ALTER TABLE relapses ADD COLUMN hourOfDay INTEGER NOT NULL DEFAULT -1")
+                db.execSQL("ALTER TABLE relapses ADD COLUMN dayOfWeek INTEGER NOT NULL DEFAULT -1")
+
+                // Create rest_tokens table
+                db.execSQL("""
+                    CREATE TABLE IF NOT EXISTS rest_tokens (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        habitId INTEGER NOT NULL,
+                        timestamp INTEGER NOT NULL,
+                        type TEXT NOT NULL DEFAULT 'DIFFICULT',
+                        note TEXT NOT NULL DEFAULT '',
+                        FOREIGN KEY(habitId) REFERENCES habits(id) ON DELETE CASCADE
+                    )
+                """.trimIndent())
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_rest_tokens_habitId ON rest_tokens(habitId)")
+
+                // Create milestones table
+                db.execSQL("""
+                    CREATE TABLE IF NOT EXISTS milestones (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        habitId INTEGER NOT NULL,
+                        dayThreshold INTEGER NOT NULL,
+                        label TEXT NOT NULL,
+                        emoji TEXT NOT NULL DEFAULT '⭐',
+                        achievedTimestamp INTEGER NOT NULL,
+                        FOREIGN KEY(habitId) REFERENCES habits(id) ON DELETE CASCADE
+                    )
+                """.trimIndent())
+                db.execSQL("CREATE INDEX IF NOT EXISTS index_milestones_habitId ON milestones(habitId)")
             }
         }
     }

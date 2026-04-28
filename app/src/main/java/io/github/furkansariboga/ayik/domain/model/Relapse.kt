@@ -36,5 +36,9 @@ data class Relapse(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val habitId: Int,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
+    val journalNote: String = "",
+    val trigger: String = "",
+    val hourOfDay: Int = -1,
+    val dayOfWeek: Int = -1
 )

@@ -60,6 +60,7 @@ fun AddEntryScreen(
     val calendar = remember { Calendar.getInstance() }
     var selectedTimestamp by remember { mutableLongStateOf(calendar.timeInMillis) }
     var dailyCostText by remember { mutableStateOf("") }
+    var dailyTimeMinutesText by remember { mutableStateOf("") }
     var initialized by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
 
@@ -72,6 +73,7 @@ fun AddEntryScreen(
                 habitName = habit.name
                 selectedTimestamp = habit.createdTimestamp
                 dailyCostText = if (habit.dailyCost > 0) habit.dailyCost.toString() else ""
+                dailyTimeMinutesText = if (habit.dailyTimeMinutes > 0) habit.dailyTimeMinutes.toString() else ""
                 calendar.timeInMillis = habit.createdTimestamp
                 initialized = true
             }
@@ -197,6 +199,25 @@ fun AddEntryScreen(
                 )
             }
 
+            AnimatedVisibility(
+                visible = visible,
+                enter = fadeIn(tween(550, delayMillis = 250)) + slideInVertically(tween(550, delayMillis = 250)) { -it / 4 }
+            ) {
+                OutlinedTextField(
+                    value = dailyTimeMinutesText,
+                    onValueChange = { newValue ->
+                        if (newValue.isEmpty() || newValue.matches(Regex("^\\d+$"))) {
+                            dailyTimeMinutesText = newValue
+                        }
+                    },
+                    label = { Text(stringResource(R.string.daily_time_minutes)) },
+                    placeholder = { Text(stringResource(R.string.daily_time_minutes_hint)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true
+                )
+            }
+
             Spacer(modifier = Modifier.weight(1f))
 
             AnimatedVisibility(
@@ -217,6 +238,7 @@ fun AddEntryScreen(
                         onClick = {
                             if (habitName.isNotBlank()) {
                                 val dailyCost = dailyCostText.toDoubleOrNull() ?: 0.0
+                                val dailyTimeMinutes = dailyTimeMinutesText.toIntOrNull() ?: 0
                                 if (isEditMode && existingHabit != null) {
                                     val habit = existingHabit!!
                                     // Only update createdTimestamp with the selected date.
@@ -233,11 +255,12 @@ fun AddEntryScreen(
                                             name = habitName,
                                             lastOccurrenceTimestamp = newLastOccurrence,
                                             dailyCost = dailyCost,
-                                            createdTimestamp = selectedTimestamp
+                                            createdTimestamp = selectedTimestamp,
+                                            dailyTimeMinutes = dailyTimeMinutes
                                         )
                                     )
                                 } else {
-                                    viewModel.addHabit(habitName, selectedTimestamp, dailyCost)
+                                    viewModel.addHabit(habitName, selectedTimestamp, dailyCost, dailyTimeMinutes)
                                 }
                                 onNavigateBack()
                             }

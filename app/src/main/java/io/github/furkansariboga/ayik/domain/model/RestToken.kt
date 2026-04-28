@@ -18,15 +18,25 @@
 package io.github.furkansariboga.ayik.domain.model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "habits")
-data class Habit(
+@Entity(
+    tableName = "rest_tokens",
+    foreignKeys = [ForeignKey(
+        entity = Habit::class,
+        parentColumns = ["id"],
+        childColumns = ["habitId"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["habitId"])]
+)
+data class RestToken(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val name: String,
-    val lastOccurrenceTimestamp: Long,
-    val dailyCost: Double = 0.0,
-    val createdTimestamp: Long = System.currentTimeMillis(),
-    val dailyTimeMinutes: Int = 0
+    val habitId: Int,
+    val timestamp: Long = System.currentTimeMillis(),
+    val type: String = "DIFFICULT", // DIFFICULT or PAUSED
+    val note: String = ""
 )

@@ -31,8 +31,8 @@ android {
         applicationId = "io.github.furkansariboga.ayik"
         minSdk = 24
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.2"
+        versionCode = 5
+        versionName = "0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -81,6 +81,22 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
+    // Biometric
+    implementation(libs.androidx.biometric)
+
+    // Security
+    implementation(libs.androidx.security.crypto)
+
+    // Glance Widgets
+    implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.glance.material3)
+
+    // WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

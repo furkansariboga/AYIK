@@ -11,7 +11,7 @@
     <string name="minutes">m</string>
     <string name="seconds">s</string>
     <string name="language">Language</string>
-    <string name="disclaimer">Disclaimer: This app is a self-tracking tool and not a substitute for professional medical advice.</string>
+    <string name="disclaimer">AYIK is a self-tracking tool and does not provide medical advice, diagnosis, or treatment. Always seek the advice of a physician or other qualified health provider with any questions you may have regarding a medical condition or addiction.</string>
     <string name="select_date">Select Date</string>
     <string name="select_time">Select Time</string>
     <string name="select_date_time">Date and Time</string>
@@ -39,4 +39,75 @@
     <string name="delete_tracker">Delete Tracker</string>
     <string name="confirm_delete">Are you sure you want to delete this tracker? All data will be permanently lost.</string>
     <string name="delete">Delete</string>
+
+    <!-- New strings for expanded features -->
+    <string name="daily_time_minutes">Daily Time (minutes)</string>
+    <string name="daily_time_minutes_hint">e.g. 30</string>
+    <string name="time_reclaimed">Time Reclaimed</string>
+    <string name="current_streak">Current Streak</string>
+    <string name="total_time_clean">Total Time Clean</string>
+    <string name="activity_heatmap">Activity Heatmap</string>
+    <string name="milestones">Milestones</string>
+
+    <!-- Relapse Journal -->
+    <string name="relapse_journal_prompt">Reflecting on what happened can help. This is optional and completely private.</string>
+    <string name="journal_note_optional">Journal note (optional)</string>
+    <string name="trigger_optional">What triggered this? (optional)</string>
+    <string name="trigger_label">Trigger</string>
+    <string name="relapse_analytics">Relapse Analytics</string>
+    <string name="relapses_by_hour">Relapses by Hour of Day</string>
+    <string name="relapses_by_day">Relapses by Day of Week</string>
+
+    <!-- Rest Tokens -->
+    <string name="mark_day">Mark Day</string>
+    <string name="rest_token_desc">Mark today as difficult or paused without resetting your streak. This helps you be honest with yourself while preserving your progress.</string>
+    <string name="difficult">Difficult</string>
+    <string name="paused">Paused</string>
+    <string name="note_optional">Note (optional)</string>
+    <string name="rest_token_history">Rest Token History</string>
+
+    <!-- Biometric / Lock -->
+    <string name="app_lock">App Lock</string>
+    <string name="setup_lock">Setup Lock</string>
+    <string name="choose_lock_type">Choose a lock type</string>
+    <string name="biometric_lock">Fingerprint</string>
+    <string name="biometric_lock_desc">Use your fingerprint to unlock</string>
+    <string name="pin_lock">PIN</string>
+    <string name="pin_lock_desc">Use a 4–32 digit PIN</string>
+    <string name="password_lock">Password</string>
+    <string name="password_lock_desc">Use a password of any length</string>
+    <string name="password">Password</string>
+    <string name="disable_lock">Disable Lock</string>
+    <string name="enter_new_pin">Enter a new PIN (4–32 digits)</string>
+    <string name="enter_new_password">Enter a new password</string>
+    <string name="confirm_new_pin">Confirm your PIN</string>
+    <string name="confirm_new_password">Confirm your password</string>
+    <string name="credentials_mismatch">Entries do not match. Try again.</string>
+    <string name="lock_setup_complete">Lock setup complete!</string>
+    <string name="done">Done</string>
+    <string name="unlock_app">Unlock to continue</string>
+    <string name="unlock">Unlock</string>
+    <string name="incorrect_pin">Incorrect PIN</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="use_biometric">Use Fingerprint</string>
+    <string name="biometric_failed">Authentication failed</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+
+    <!-- About / Disclaimer -->
+    <string name="about">About</string>
+    <string name="about_disclaimer">AYIK is a self-tracking tool and does not provide medical advice, diagnosis, or treatment. Always seek the advice of a physician or other qualified health provider with any questions you may have regarding a medical condition or addiction.</string>
+    <string name="about_disclaimer_2">This application is provided for informational and motivational purposes only. It is NOT a substitute for professional medical advice, diagnosis, or treatment. Never disregard professional medical advice or delay in seeking it because of something you have tracked in this application. The software is provided \"as is\", without warranty of any kind.</string>
+
+    <!-- Widgets -->
+    <string name="widget_counter_small">AYIK Counter (Small)</string>
+    <string name="widget_counter_medium">AYIK Counter</string>
+    <string name="widget_heatmap_small">AYIK Heatmap (Small)</string>
+    <string name="widget_heatmap_medium">AYIK Heatmap</string>
+    <string name="widget_heatmap_large">AYIK Heatmap (Large)</string>
+    <string name="widget_counter_small_desc">Shows streak counter</string>
+    <string name="widget_counter_medium_desc">Shows habit name and streak counter</string>
+    <string name="widget_heatmap_small_desc">Shows counter with mini heatmap</string>
+    <string name="widget_heatmap_medium_desc">Shows counter with 8-week heatmap</string>
+    <string name="widget_heatmap_large_desc">Shows counter with 12-week heatmap</string>
 </resources>

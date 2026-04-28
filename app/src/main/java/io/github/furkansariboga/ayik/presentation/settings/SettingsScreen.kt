@@ -1,19 +1,7 @@
 /*
     AYIK - Abstinence Clock
     Copyright (C) 2026  Furkan Sarıboğa
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    Licensed under GPL v3 — see LICENSE file.
 */
 package io.github.furkansariboga.ayik.presentation.settings
 
@@ -24,84 +12,121 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import io.github.furkansariboga.ayik.R
+import io.github.furkansariboga.ayik.security.SecurityManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onSetupLock: () -> Unit,
+    securityManager: SecurityManager
 ) {
+    val context = LocalContext.current
     val languages = listOf(
-        "English" to "en",
-        "Türkçe" to "tr",
-        "Español" to "es",
-        "Français" to "fr",
-        "Português" to "pt",
-        "Bahasa Indonesia" to "id",
-        "العربية" to "ar",
-        "हिन्दी" to "hi",
-        "বাংলা" to "bn",
-        "اردو" to "ur",
-        "简体中文" to "zh-Hans",
-        "繁體中文" to "zh-Hant"
+        "English" to "en", "Türkçe" to "tr", "Español" to "es", "Français" to "fr",
+        "Português" to "pt", "Bahasa Indonesia" to "id", "العربية" to "ar", "हिन्दी" to "hi",
+        "বাংলা" to "bn", "اردو" to "ur", "简体中文" to "zh-Hans", "繁體中文" to "zh-Hant"
     )
 
     val currentLocales = AppCompatDelegate.getApplicationLocales()
     val currentLocale = if (!currentLocales.isEmpty) {
         val firstLocale = currentLocales.get(0)
         if (firstLocale?.language == "zh") {
-            if (firstLocale.script == "Hant" || firstLocale.country == "TW" || firstLocale.country == "HK") "zh-Hant"
-            else "zh-Hans"
+            if (firstLocale.script == "Hant" || firstLocale.country == "TW" || firstLocale.country == "HK") "zh-Hant" else "zh-Hans"
         } else {
-            // Normalize 'in' to 'id' for Indonesian if necessary, though AppCompat handles it
             val lang = firstLocale?.language ?: "en"
             if (lang == "in") "id" else lang
         }
-    } else {
-        "en"
-    }
+    } else "en"
 
     var showLanguageDialog by remember { mutableStateOf(false) }
+    val isLockEnabled = securityManager.isLockEnabled
+    val lockType = securityManager.lockType
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.settings)) },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.cancel)
-                        )
-                    }
-                }
-            )
-        }
-    ) { innerPadding ->
+    Scaffold(topBar = {
+        TopAppBar(
+            title = { Text(stringResource(R.string.settings)) },
+            navigationIcon = { IconButton(onClick = onNavigateBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.cancel)) } }
+        )
+    }) { innerPadding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.fillMaxSize().padding(innerPadding).verticalScroll(rememberScrollState())
         ) {
+            // Language
             ListItem(
                 headlineContent = { Text(stringResource(R.string.language)) },
-                supportingContent = { 
-                    val currentLangName = languages.find { it.second == currentLocale }?.first ?: "English"
-                    Text(currentLangName)
-                },
+                supportingContent = { Text(languages.find { it.second == currentLocale }?.first ?: "English") },
                 modifier = Modifier.clickable { showLanguageDialog = true }
             )
-            
-            HorizontalDivider()
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+
+            // App Lock
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.app_lock)) },
+                supportingContent = {
+                    Text(if (isLockEnabled) {
+                        when (lockType) {
+                            SecurityManager.LOCK_TYPE_BIOMETRIC -> stringResource(R.string.biometric_lock)
+                            SecurityManager.LOCK_TYPE_PIN -> stringResource(R.string.pin_lock)
+                            SecurityManager.LOCK_TYPE_PASSWORD -> stringResource(R.string.password_lock)
+                            else -> stringResource(R.string.enabled)
+                        }
+                    } else stringResource(R.string.disabled))
+                },
+                leadingContent = { Icon(Icons.Default.Lock, null) },
+                modifier = Modifier.clickable { onSetupLock() }
+            )
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // About section
+            Text(
+                text = stringResource(R.string.about),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Info, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text(stringResource(R.string.app_name), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                    }
+                    Spacer(Modifier.height(12.dp))
+                    Text(
+                        text = stringResource(R.string.about_disclaimer),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(R.string.about_disclaimer_2),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 
@@ -111,38 +136,20 @@ fun SettingsScreen(
             onDismissRequest = { showLanguageDialog = false },
             title = { Text(stringResource(R.string.language)) },
             text = {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(scrollState)
-                        .fillMaxWidth()
-                ) {
+                Column(modifier = Modifier.verticalScroll(scrollState).fillMaxWidth()) {
                     languages.forEach { (name, code) ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(code)
-                                    AppCompatDelegate.setApplicationLocales(appLocale)
-                                    showLanguageDialog = false
-                                }
-                                .padding(vertical = 12.dp, horizontal = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = currentLocale == code,
-                                onClick = null
-                            )
-                            Spacer(modifier = Modifier.width(16.dp))
+                        Row(modifier = Modifier.fillMaxWidth().clickable {
+                            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+                            showLanguageDialog = false
+                        }.padding(vertical = 12.dp, horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            RadioButton(selected = currentLocale == code, onClick = null)
+                            Spacer(Modifier.width(16.dp))
                             Text(name)
                         }
                     }
                 }
             },
-            confirmButton = {
-                TextButton(onClick = { showLanguageDialog = false }) {
-                    Text(stringResource(android.R.string.ok))
-                }
-            }
+            confirmButton = { TextButton(onClick = { showLanguageDialog = false }) { Text(stringResource(android.R.string.ok)) } }
         )
     }
 }

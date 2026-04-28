@@ -18,15 +18,26 @@
 package io.github.furkansariboga.ayik.domain.model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "habits")
-data class Habit(
+@Entity(
+    tableName = "milestones",
+    foreignKeys = [ForeignKey(
+        entity = Habit::class,
+        parentColumns = ["id"],
+        childColumns = ["habitId"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["habitId"])]
+)
+data class Milestone(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val name: String,
-    val lastOccurrenceTimestamp: Long,
-    val dailyCost: Double = 0.0,
-    val createdTimestamp: Long = System.currentTimeMillis(),
-    val dailyTimeMinutes: Int = 0
+    val habitId: Int,
+    val dayThreshold: Int, // The number of days needed for this milestone
+    val label: String, // e.g., "1 Day", "1 Week"
+    val emoji: String = "⭐", // emoji/icon for the milestone
+    val achievedTimestamp: Long = System.currentTimeMillis()
 )

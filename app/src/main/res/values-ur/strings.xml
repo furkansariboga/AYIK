@@ -98,4 +98,13 @@
     <string name="widget_heatmap_small_desc">منی نقشے کے ساتھ کاؤنٹر</string>
     <string name="widget_heatmap_medium_desc">8 ہفتوں کے نقشے کے ساتھ کاؤنٹر</string>
     <string name="widget_heatmap_large_desc">12 ہفتوں کے نقشے کے ساتھ کاؤنٹر</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">1 دن</string>
+    <string name="milestone_days">%1$d دن</string>
+    <string name="milestone_one_week">1 ہفتہ</string>
+    <string name="milestone_weeks">%1$d ہفتے</string>
+    <string name="milestone_months">%1$d مہینے</string>
+    <string name="milestone_one_year">1 سال</string>
+    <string name="milestone_years">%1$d سال</string>
 </resources>

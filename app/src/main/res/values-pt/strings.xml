@@ -98,4 +98,13 @@
     <string name="widget_heatmap_small_desc">Contador com mini mapa</string>
     <string name="widget_heatmap_medium_desc">Contador com mapa de 8 semanas</string>
     <string name="widget_heatmap_large_desc">Contador com mapa de 12 semanas</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">1 Dia</string>
+    <string name="milestone_days">%1$d Dias</string>
+    <string name="milestone_one_week">1 Semana</string>
+    <string name="milestone_weeks">%1$d Semanas</string>
+    <string name="milestone_months">%1$d Meses</string>
+    <string name="milestone_one_year">1 Ano</string>
+    <string name="milestone_years">%1$d Anos</string>
 </resources>

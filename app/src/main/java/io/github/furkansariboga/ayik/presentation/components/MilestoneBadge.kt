@@ -18,6 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.furkansariboga.ayik.domain.model.Milestone
+import io.github.furkansariboga.ayik.util.MilestoneUtils
+import androidx.compose.ui.platform.LocalContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,6 +43,12 @@ fun MilestoneBadge(
 
     val sdf = remember { SimpleDateFormat("dd/MM/yy", Locale.getDefault()) }
 
+    val context = LocalContext.current
+    val localizedLabel = remember(milestone.dayThreshold, milestone.label) {
+        MilestoneUtils.generateMilestones(context, milestone.dayThreshold)
+            .find { it.days == milestone.dayThreshold }?.label ?: milestone.label
+    }
+
     Card(
         modifier = modifier.scale(scale),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
@@ -58,7 +66,7 @@ fun MilestoneBadge(
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = milestone.label,
+                text = localizedLabel,
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,

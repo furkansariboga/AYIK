@@ -99,4 +99,13 @@
     <string name="widget_heatmap_small_desc">Mini harita ile sayaç gösterir</string>
     <string name="widget_heatmap_medium_desc">8 haftalık harita ile sayaç gösterir</string>
     <string name="widget_heatmap_large_desc">12 haftalık harita ile sayaç gösterir</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">1 Gün</string>
+    <string name="milestone_days">%1$d Gün</string>
+    <string name="milestone_one_week">1 Hafta</string>
+    <string name="milestone_weeks">%1$d Hafta</string>
+    <string name="milestone_months">%1$d Ay</string>
+    <string name="milestone_one_year">1 Yıl</string>
+    <string name="milestone_years">%1$d Yıl</string>
 </resources>

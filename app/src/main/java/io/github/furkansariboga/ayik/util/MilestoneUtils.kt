@@ -17,6 +17,9 @@
 */
 package io.github.furkansariboga.ayik.util
 
+import android.content.Context
+import io.github.furkansariboga.ayik.R
+
 /**
  * Dynamic milestone generation:
  * - Days 1–14: every day
@@ -36,7 +39,7 @@ object MilestoneUtils {
      * Generate all milestone definitions up to and including the given number of days.
      * This is dynamic — it will produce yearly milestones for however many years the user has been clean.
      */
-    fun generateMilestones(upToDays: Int): List<MilestoneDefinition> {
+    fun generateMilestones(context: Context, upToDays: Int): List<MilestoneDefinition> {
         val milestones = mutableListOf<MilestoneDefinition>()
 
         // Days 1–14: every day
@@ -48,9 +51,9 @@ object MilestoneUtils {
                 else -> "⭐"
             }
             val label = when (d) {
-                1 -> "1 Day"
-                7 -> "1 Week"
-                else -> "$d Days"
+                1 -> context.getString(R.string.milestone_one_day)
+                7 -> context.getString(R.string.milestone_one_week)
+                else -> context.getString(R.string.milestone_days, d)
             }
             milestones.add(MilestoneDefinition(d, label, emoji))
         }
@@ -63,7 +66,7 @@ object MilestoneUtils {
                 8 -> "🎯"
                 else -> "🌟"
             }
-            val label = "$w Weeks"
+            val label = context.getString(R.string.milestone_weeks, w)
             milestones.add(MilestoneDefinition(d, label, emoji))
         }
 
@@ -76,7 +79,7 @@ object MilestoneUtils {
                 12 -> "👑"
                 else -> "🏆"
             }
-            val label = if (m == 12) "1 Year" else "$m Months"
+            val label = if (m == 12) context.getString(R.string.milestone_one_year) else context.getString(R.string.milestone_months, m)
             milestones.add(MilestoneDefinition(d, label, emoji))
         }
 
@@ -91,7 +94,7 @@ object MilestoneUtils {
                 year % 5 == 0 -> "✨"
                 else -> "👑"
             }
-            milestones.add(MilestoneDefinition(d, "$year Years", emoji))
+            milestones.add(MilestoneDefinition(d, context.getString(R.string.milestone_years, year), emoji))
             year++
         }
 
@@ -101,14 +104,14 @@ object MilestoneUtils {
     /**
      * Get milestones that should be awarded for a given number of clean days.
      */
-    fun getAchievedMilestones(cleanDays: Int): List<MilestoneDefinition> {
-        return generateMilestones(cleanDays).filter { it.days <= cleanDays }
+    fun getAchievedMilestones(context: Context, cleanDays: Int): List<MilestoneDefinition> {
+        return generateMilestones(context, cleanDays).filter { it.days <= cleanDays }
     }
 
     /**
      * Get the next upcoming milestone for a given number of clean days.
      */
-    fun getNextMilestone(cleanDays: Int): MilestoneDefinition? {
-        return generateMilestones(cleanDays + 365).firstOrNull { it.days > cleanDays }
+    fun getNextMilestone(context: Context, cleanDays: Int): MilestoneDefinition? {
+        return generateMilestones(context, cleanDays + 365).firstOrNull { it.days > cleanDays }
     }
 }

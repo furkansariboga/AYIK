@@ -98,4 +98,13 @@
     <string name="widget_heatmap_small_desc">मिनी मानचित्र के साथ काउंटर</string>
     <string name="widget_heatmap_medium_desc">8 सप्ताह के मानचित्र के साथ काउंटर</string>
     <string name="widget_heatmap_large_desc">12 सप्ताह के मानचित्र के साथ काउंटर</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">1 दिन</string>
+    <string name="milestone_days">%1$d दिन</string>
+    <string name="milestone_one_week">1 सप्ताह</string>
+    <string name="milestone_weeks">%1$d सप्ताह</string>
+    <string name="milestone_months">%1$d महीने</string>
+    <string name="milestone_one_year">1 वर्ष</string>
+    <string name="milestone_years">%1$d वर्ष</string>
 </resources>

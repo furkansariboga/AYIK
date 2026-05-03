@@ -98,4 +98,13 @@
     <string name="widget_heatmap_small_desc">Penghitung dengan peta mini</string>
     <string name="widget_heatmap_medium_desc">Penghitung dengan peta 8 minggu</string>
     <string name="widget_heatmap_large_desc">Penghitung dengan peta 12 minggu</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">1 Hari</string>
+    <string name="milestone_days">%1$d Hari</string>
+    <string name="milestone_one_week">1 Minggu</string>
+    <string name="milestone_weeks">%1$d Minggu</string>
+    <string name="milestone_months">%1$d Bulan</string>
+    <string name="milestone_one_year">1 Tahun</string>
+    <string name="milestone_years">%1$d Tahun</string>
 </resources>

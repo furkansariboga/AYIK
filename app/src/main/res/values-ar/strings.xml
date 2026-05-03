@@ -98,4 +98,13 @@
     <string name="widget_heatmap_small_desc">عداد مع خريطة مصغرة</string>
     <string name="widget_heatmap_medium_desc">عداد مع خريطة 8 أسابيع</string>
     <string name="widget_heatmap_large_desc">عداد مع خريطة 12 أسبوعاً</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">يوم واحد</string>
+    <string name="milestone_days">%1$d أيام</string>
+    <string name="milestone_one_week">أسبوع واحد</string>
+    <string name="milestone_weeks">%1$d أسابيع</string>
+    <string name="milestone_months">%1$d أشهر</string>
+    <string name="milestone_one_year">سنة واحدة</string>
+    <string name="milestone_years">%1$d سنوات</string>
 </resources>

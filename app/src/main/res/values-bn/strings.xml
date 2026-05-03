@@ -98,4 +98,13 @@
     <string name="widget_heatmap_small_desc">মিনি মানচিত্র সহ গণক</string>
     <string name="widget_heatmap_medium_desc">৮ সপ্তাহের মানচিত্র সহ গণক</string>
     <string name="widget_heatmap_large_desc">১২ সপ্তাহের মানচিত্র সহ গণক</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">১ দিন</string>
+    <string name="milestone_days">%1$d দিন</string>
+    <string name="milestone_one_week">১ সপ্তাহ</string>
+    <string name="milestone_weeks">%1$d সপ্তাহ</string>
+    <string name="milestone_months">%1$d মাস</string>
+    <string name="milestone_one_year">১ বছর</string>
+    <string name="milestone_years">%1$d বছর</string>
 </resources>

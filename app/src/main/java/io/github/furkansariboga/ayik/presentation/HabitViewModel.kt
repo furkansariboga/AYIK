@@ -116,7 +116,7 @@ class HabitViewModel @Inject constructor(
         viewModelScope.launch {
             val now = System.currentTimeMillis()
             val cleanDays = TimeUnit.MILLISECONDS.toDays(now - habit.createdTimestamp).toInt()
-            val achievedDefs = MilestoneUtils.getAchievedMilestones(cleanDays)
+            val achievedDefs = MilestoneUtils.getAchievedMilestones(application, cleanDays)
 
             for (def in achievedDefs) {
                 val existing = repository.getMilestoneByThreshold(habit.id, def.days)

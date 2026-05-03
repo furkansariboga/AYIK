@@ -98,4 +98,13 @@
     <string name="widget_heatmap_small_desc">带迷你热图的计数器</string>
     <string name="widget_heatmap_medium_desc">带8周热图的计数器</string>
     <string name="widget_heatmap_large_desc">带12周热图的计数器</string>
+
+    <!-- Dynamic Milestones -->
+    <string name="milestone_one_day">1 天</string>
+    <string name="milestone_days">%1$d 天</string>
+    <string name="milestone_one_week">1 周</string>
+    <string name="milestone_weeks">%1$d 周</string>
+    <string name="milestone_months">%1$d 个月</string>
+    <string name="milestone_one_year">1 年</string>
+    <string name="milestone_years">%1$d 年</string>
 </resources>

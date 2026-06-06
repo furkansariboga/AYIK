@@ -38,32 +38,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Counter Small Widget (2x1) -->
-        <receiver
-            android:name=".widget.CounterSmallWidgetReceiver"
-            android:exported="true"
-            android:label="@string/widget_counter_small">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_counter_small_info" />
-        </receiver>
-
-        <!-- Counter Medium Widget (3x1) -->
-        <receiver
-            android:name=".widget.CounterMediumWidgetReceiver"
-            android:exported="true"
-            android:label="@string/widget_counter_medium">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_counter_medium_info" />
-        </receiver>
-
         <!-- Heatmap Small Widget (3x2) -->
         <receiver
             android:name=".widget.HeatmapSmallWidgetReceiver"

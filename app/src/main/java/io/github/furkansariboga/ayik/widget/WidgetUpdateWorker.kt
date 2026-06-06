@@ -20,8 +20,6 @@ class WidgetUpdateWorker(appContext: Context, workerParams: WorkerParameters) :
 
     companion object {
         suspend fun updateAllWidgets(context: Context) {
-            CounterSmallWidget().updateAll(context)
-            CounterMediumWidget().updateAll(context)
             HeatmapSmallWidget().updateAll(context)
             HeatmapMediumWidget().updateAll(context)
             HeatmapLargeWidget().updateAll(context)

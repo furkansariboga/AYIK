@@ -73,21 +73,29 @@ private fun WidgetConfigScreen(context: Context, appWidgetId: Int, onHabitSelect
                 Text("No habits tracked yet. Add one in the app first.")
             }
         } else {
-            LazyColumn(modifier = Modifier.fillMaxSize().padding(innerPadding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 items(habits) { habit ->
                     Card(modifier = Modifier.fillMaxWidth().clickable {
                         scope.launch {
-                            context.widgetDataStore.edit { prefs -> prefs[WidgetDataHelper.habitIdKey(appWidgetId)] = habit.id }
-                            // Force update all widget types so selected habit data shows immediately
-                            CounterSmallWidget().updateAll(context)
-                            CounterMediumWidget().updateAll(context)
+                            context.widgetDataStore.edit { prefs ->
+                                prefs[WidgetDataHelper.habitIdKey(appWidgetId)] = habit.id
+                            }
                             HeatmapSmallWidget().updateAll(context)
                             HeatmapMediumWidget().updateAll(context)
                             HeatmapLargeWidget().updateAll(context)
                             onHabitSelected(habit.id)
                         }
                     }) {
-                        Text(habit.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Medium, modifier = Modifier.padding(16.dp))
+                        Text(
+                            habit.name,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier.padding(16.dp)
+                        )
                     }
                 }
             }

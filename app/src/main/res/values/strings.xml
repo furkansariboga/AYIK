@@ -107,9 +107,9 @@
     <string name="widget_heatmap_large">AYIK Heatmap (Large)</string>
     <string name="widget_counter_small_desc">Shows streak counter</string>
     <string name="widget_counter_medium_desc">Shows habit name and streak counter</string>
-    <string name="widget_heatmap_small_desc">Shows counter with mini heatmap</string>
-    <string name="widget_heatmap_medium_desc">Shows counter with 8-week heatmap</string>
-    <string name="widget_heatmap_large_desc">Shows counter with 12-week heatmap</string>
+    <string name="widget_heatmap_small_desc">12-week dot map with streak counter</string>
+    <string name="widget_heatmap_medium_desc">24-week dot map with streak counter</string>
+    <string name="widget_heatmap_large_desc">52-week dot map with streak, relapses, and legend</string>
 
     <!-- Widget Settings -->
     <string name="widget_update_interval">Widget Update Interval</string>

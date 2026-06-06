@@ -10,7 +10,6 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -38,7 +37,8 @@ fun HeatmapView(
     val cleanColor = MaterialTheme.colorScheme.primary
     val cleanColorLight = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
     val relapseColor = Color(0xFFEF5350)
-    val restTokenColor = Color(0xFFFFCA28)
+    val difficultColor = Color(0xFFFFCA28)
+    val pausedColor = Color(0xFF4FC3F7)
     val emptyColor = MaterialTheme.colorScheme.surfaceVariant
     val textColor = MaterialTheme.colorScheme.onSurfaceVariant
     val textMeasurer = rememberTextMeasurer()
@@ -49,7 +49,6 @@ fun HeatmapView(
     val topLabelHeight = 16.dp
     val density = LocalDensity.current
 
-    // Build day status map
     val dayStatusMap = remember(relapses, restTokens, createdTimestamp) {
         buildDayStatusMap(createdTimestamp, relapses, restTokens)
     }
@@ -57,7 +56,7 @@ fun HeatmapView(
     val totalWidth = leftLabelWidth + (cellSize + cellSpacing) * weeks
     val totalHeight = topLabelHeight + (cellSize + cellSpacing) * 7
 
-    val scrollState = rememberScrollState(Int.MAX_VALUE) // scroll to end (most recent)
+    val scrollState = rememberScrollState(Int.MAX_VALUE)
 
     Box(modifier = modifier.horizontalScroll(scrollState)) {
         Canvas(
@@ -70,13 +69,11 @@ fun HeatmapView(
             val leftLabelPx = leftLabelWidth.toPx()
             val topLabelPx = topLabelHeight.toPx()
 
-            // Calculate start date (weeks ago from today)
             val cal = Calendar.getInstance()
             val today = cal.clone() as Calendar
             cal.add(Calendar.WEEK_OF_YEAR, -(weeks - 1))
             cal.set(Calendar.DAY_OF_WEEK, cal.firstDayOfWeek)
 
-            // Draw day labels (M, W, F)
             val dayLabels = listOf("" to 0, "M" to 1, "" to 2, "W" to 3, "" to 4, "F" to 5, "" to 6)
             dayLabels.forEach { (label, dayIndex) ->
                 if (label.isNotEmpty()) {
@@ -89,7 +86,6 @@ fun HeatmapView(
                 }
             }
 
-            // Draw cells
             var prevMonth = -1
             for (week in 0 until weeks) {
                 for (day in 0..6) {
@@ -101,7 +97,6 @@ fun HeatmapView(
                     val x = leftLabelPx + week * (cellSizePx + cellSpacingPx)
                     val y = topLabelPx + day * (cellSizePx + cellSpacingPx)
 
-                    // Month label at top
                     if (day == 0) {
                         val month = currentCal.get(Calendar.MONTH)
                         if (month != prevMonth) {
@@ -115,7 +110,6 @@ fun HeatmapView(
                         }
                     }
 
-                    // Determine cell color
                     val dayKey = dayKey(currentCal)
                     val isFuture = currentCal.after(today)
                     val isBeforeCreation = currentCal.timeInMillis < createdTimestamp - TimeUnit.DAYS.toMillis(1)
@@ -123,7 +117,8 @@ fun HeatmapView(
                     val color = when {
                         isFuture || isBeforeCreation -> emptyColor
                         dayStatusMap[dayKey] == DayStatus.RELAPSE -> relapseColor
-                        dayStatusMap[dayKey] == DayStatus.REST_TOKEN -> restTokenColor
+                        dayStatusMap[dayKey] == DayStatus.DIFFICULT -> difficultColor
+                        dayStatusMap[dayKey] == DayStatus.PAUSED -> pausedColor
                         dayStatusMap[dayKey] == DayStatus.CLEAN -> cleanColor
                         else -> cleanColorLight
                     }
@@ -140,7 +135,7 @@ fun HeatmapView(
     }
 }
 
-private enum class DayStatus { CLEAN, RELAPSE, REST_TOKEN }
+private enum class DayStatus { CLEAN, RELAPSE, DIFFICULT, PAUSED }
 
 private fun dayKey(cal: Calendar): Long {
     val c = cal.clone() as Calendar
@@ -158,22 +153,19 @@ private fun buildDayStatusMap(
 ): Map<Long, DayStatus> {
     val map = mutableMapOf<Long, DayStatus>()
 
-    // Mark relapse days
     relapses.forEach { relapse ->
         val cal = Calendar.getInstance().apply { timeInMillis = relapse.timestamp }
         map[dayKey(cal)] = DayStatus.RELAPSE
     }
 
-    // Mark rest token days (don't overwrite relapses)
     restTokens.forEach { token ->
         val cal = Calendar.getInstance().apply { timeInMillis = token.timestamp }
         val key = dayKey(cal)
         if (map[key] != DayStatus.RELAPSE) {
-            map[key] = DayStatus.REST_TOKEN
+            map[key] = if (token.type == "PAUSED") DayStatus.PAUSED else DayStatus.DIFFICULT
         }
     }
 
-    // Fill in clean days
     val startCal = Calendar.getInstance().apply {
         timeInMillis = createdTimestamp
         set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0); set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0)
